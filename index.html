@@ -1,0 +1,160 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+			integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+			integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="/css/style.css" />
+		<title>Admin Dashboard</title>
+	</head>
+	<body>
+		<div class="d-flex" id="wrapper">
+			<!-- Sidebar -->
+			<div class="border-right" id="sidebar-wrapper">
+				<div class="sidebar-heading">
+					<h4>
+						<strong>MCA+ Admin</strong>
+					</h4>
+					<hr style="background-color: honeydew" />
+				</div>
+				<div class="list-group list-group-flush">
+					<a href="#" class="nav-link mb-2 active">
+						<i class="fas fa-user-graduate mx-1"></i> Student
+					</a>
+					<a href="/teacher/teacher.html" class="nav-link  mb-2 ">
+						<i class="fas fa-chalkboard-teacher mx-1"></i> Teacher
+					</a>
+					<a href="#" class="nav-link  mb-2 ">
+						<i class="fas fa-chalkboard mx-1"></i> Classes
+					</a>
+					<a href="#" class="nav-link  mb-2 ">
+						<i class="fas fa-calendar-alt mx-1"></i> Attendance
+					</a>
+					<a href="#" class="nav-link mb-2 ">
+						<i class="fas fa-rupee-sign mx-1"></i> Payment
+					</a>
+					<a href="#" class="nav-link logout mx-1 mt-5">
+						<i class="fas fa-sign-out-alt"></i> Logout
+					</a>
+				</div>
+			</div>
+			<!-- /#sidebar-wrapper -->
+
+			<!-- Page Content -->
+			<div id="page-content-wrapper">
+				<nav
+					class="navbar navbar-expand-lg navbar-light bg-light border-bottom"
+				>
+					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+						<li class="nav-item mx-3">
+							
+							<a href="#" class="grey-text modal-trigger" data-target="modal-create">Create Student</a>
+						</li>
+						<li class="nav-item mx-3">
+							
+							<a href="#" class="grey-text modal-trigger" data-target="modal-login">EDIT</a>
+						</li>
+						<li class="nav-item mx-3">
+							
+						<a href="#" class="grey-text modal-trigger" data-target="modal-login">View All Students</a>
+						</li>
+					</ul>
+				</nav>
+
+				 <!-- CREATE UP MODAL -->
+				<div id="modal-create" class="modal">
+					<div class="modal-content">
+					<h4>Create Students</h4><br />
+					<form id="signup-form">
+						<div class="input-field">
+						<input type="email" id="signup-email" required />
+						<label for="signup-email">Email address</label>
+						</div>
+						<div class="input-field">
+						<input type="password" id="signup-password" required />
+						<label for="signup-password">Choose password</label>
+						</div>
+						<button class="btn btn-color-dark">Sign up</button>
+					</form>
+					</div>
+				</div>
+
+				<div class="container-fluid">
+					<h1 class="mt-4">ADD STUDENTS</h1>
+					<p>The text box and shit</p>
+					<p>another text and submit buttons and shit</p>
+					<button class="btn btn-color-dark">A button</button>
+				</div>
+			</div>
+			<!-- /#page-content-wrapper -->
+		</div>
+		<!-- /#wrapper -->
+
+		<!-- Bootstrap core JavaScript -->
+		<script
+			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+			integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+			crossorigin="anonymous"
+		></script>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyDYaQ26PXTWNH3DAuG8teZWIgh9AuD4zO8",
+    authDomain: "mcaplusclass.firebaseapp.com",
+    databaseURL: "https://mcaplusclass.firebaseio.com",
+    projectId: "mcaplusclass",
+    storageBucket: "mcaplusclass.appspot.com",
+    messagingSenderId: "696986830545",
+    appId: "1:696986830545:web:8d4a491481f27daa4f67f0",
+    measurementId: "G-GBLS6X23XK"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  //make auth and firestore refrence 
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+
+  // update firestore setting
+  db.settings({ timestampInSnapshot: true });
+
+</script>
+	<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="scripts/auth.js"></script>
+<script src="scripts/index.js"></script>
+
+</html>

@@ -1,0 +1,281 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+			integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+			integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"
+		/>
+
+		<link rel="stylesheet" href="/css/style.css" />
+		<title>Admin Dashboard</title>
+	</head>
+	<body>
+		<div class="d-flex" id="wrapper">
+			<!-- Sidebar -->
+			<div class="border-right" id="sidebar-wrapper">
+				<div class="sidebar-heading">
+					<a href="../index.html">
+						<h4 class="text-white">
+							<strong>MCA+ Admin</strong>
+						</h4>
+					</a>
+					<hr style="background-color: honeydew" />
+				</div>
+				<div class="list-group list-group-flush">
+					<a href="../index.html" class="nav-link mb-2 ">
+						<i class="fas fa-user-graduate mx-1"></i> Student
+					</a>
+					<a href="../teacher/teacher.html" class="nav-link mb-2 ">
+						<i class="fas fa-chalkboard-teacher mx-1"></i> Teacher
+					</a>
+					<a href="#" class="nav-link mb-2 active">
+						<i class="fas fa-chalkboard mx-1"></i> Classes
+					</a>
+					<a href="#" class="nav-link mb-2 ">
+						<i class="fas fa-calendar-alt mx-1"></i> Attendance
+					</a>
+					<a href="#" class="nav-link mb-2 ">
+						<i class="fas fa-rupee-sign mx-1"></i> Payment
+					</a>
+					<a href="#" class="nav-link logout mx-1 mt-5">
+						<i class="fas fa-sign-out-alt"></i> Logout
+					</a>
+				</div>
+			</div>
+			<!-- /#sidebar-wrapper -->
+
+			<!-- Page Content -->
+			<div id="page-content-wrapper">
+				<nav
+					class="navbar navbar-expand-lg navbar-light bg-light border-bottom"
+				>
+					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+						<li class="nav-item mx-3">
+							<a class="nav-link " href="class.html">Create</a>
+						</li>
+						<li class="nav-item mx-3">
+							<a class="nav-link active" href="viewClass.html">View</a>
+						</li>
+						<li class="nav-item mx-3">
+							<a class="nav-link" href="payments.html">Payment</a>
+						</li>
+					</ul>
+				</nav>
+
+				<div class="container-fluid px-5">
+					<h4 class="mt-4">Add Teacher</h4>
+					<form id="createTeacher">
+						<div class="row mt-4">
+							<div class="form-inline">
+								<input id="teacherID" type="text" class="form-control mx-2" placeholder="Teacher ID" required/>
+								<input id="name" type="text" class="form-control mx-2" placeholder="Name" required/>
+								<input id="dob" type="text" class="form-control mx-2" placeholder="DOB" required/>
+							</div>
+
+							<div class="form-inline mt-3">
+								<input id="email" type="email" class="form-control mx-2" placeholder="Email" required/>
+								<input id="password" type="password" class="form-control mx-2" placeholder="Password" required/>
+								<input id="phoneNo" type="number" class="form-control mx-2" placeholder="Phone Number" required/>
+							</div>
+						</div>
+						<button class="btn btn-color-dark mt-3" type="submit">
+							Create Teacher
+						</button>
+					</form>
+
+					<div class="my-5">
+						<h4 class="mt-4">Upload teacher Details File</h4>
+						<div class="row mt-4">
+							<div class="form-inline mb-4">
+								<button
+									class="btn btn-color-dark ml-3"
+									id="attachButton"
+								>
+									<i class="fas fa-paperclip text-white"></i>
+								</button>
+								<input
+									type="text"
+									class="form-control mx-4"
+									id="filename"
+									disabled
+								/>
+								<button class="btn btn-color-dark mx-3">
+									Upload
+								</button>
+								<input
+									type="file"
+									id="fileUploader"
+									name="fileUploader"
+									accept=".xls, .xlsx"
+									class="d-none"
+								/>
+							</div>
+
+							<table id="teacherTable" class="d-none">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>DOB</th>
+										<th>Email</th>
+										<th>Phone No</th>
+										<th>ClassID</th>
+										<th>Subjects</th>
+										<th>Created at</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th>Name</th>
+										<th>DOB</th>
+										<th>Email</th>
+										<th>Phone No</th>
+										<th>ClassID</th>
+										<th>Subjects</th>
+										<th>Created at</th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+					<p id="jsonObject"></p>
+				</div>
+			</div>
+			<!-- /#page-content-wrapper -->
+		</div>
+		<!-- /#wrapper -->
+
+		<!-- Bootstrap core JavaScript -->
+		<script
+			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+			integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+			crossorigin="anonymous"
+		></script>
+		<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.7/xlsx.full.min.js"
+			integrity="sha512-qeZm7dcb/ZzFPcKeDm6ATjquEQGPPOV4wtt8wbrinfdRjWgl9vwAIjZQj8mvc3qCyz9IW3mLZH5QnkhK5aeTBg=="
+			crossorigin="anonymous"
+		></script>
+
+		<script>
+			//declaring a global variables so can be accessed outside
+			let json_object = null
+			let XL_row_object = null
+
+			$(document).ready(function () {
+				//hide th table on page load
+				$('#teacherTable').addClass('d-none')
+
+				// To convert excel to json
+				$('#fileUploader').change(function (evt) {
+					let filename = this.value
+					let lastIndex = filename.lastIndexOf('\\')
+					if (lastIndex >= 0) {
+						filename = filename.substring(lastIndex + 1)
+					}
+					document.getElementById('filename').value = filename
+
+					let selectedFile = evt.target.files[0]
+					let reader = new FileReader()
+					reader.onload = function (event) {
+						let data = event.target.result
+						let workbook = XLSX.read(data, {
+							type: 'binary',
+						})
+						workbook.SheetNames.forEach(function (sheetName) {
+							XL_row_object = XLSX.utils.sheet_to_row_object_array(
+								workbook.Sheets[sheetName]
+							) //json object
+							json_object = JSON.stringify(XL_row_object) //json object to string
+							fill_table(XL_row_object)
+						})
+					}
+
+					reader.onerror = function (event) {
+						console.error(
+							'File could not be read! Code ' +
+								event.target.error.code
+						)
+					}
+					reader.readAsBinaryString(selectedFile)
+				})
+			})
+			//calling click on file upload
+			$('#attachButton').click((e) => {
+				$('#fileUploader').click()
+			})
+
+			//function to load table with json data
+			function fill_table(jsonData) {
+				$('#teacherTable').DataTable({
+					data: jsonData,
+					columns: [
+						{ data: 'Name' },
+						{ data: 'DOB' },
+						{ data: 'Email' },
+						{ data: 'Phone No' },
+						{ data: 'ClassID' },
+						{ data: 'Subjects' },
+						{ data: 'Created at' },
+					],
+				})
+				$('#teacherTable').removeClass('d-none')
+			}
+
+			function test() {
+				alert('Hello')
+			}
+		</script>
+
+				<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+			https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+
+		<script>
+		// Your web app's Firebase configuration
+		// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+		var firebaseConfig = {
+			apiKey: "AIzaSyAO1UpIZCXavicZ185nFJMhsqDq-nLITvE",
+			authDomain: "kjc-mca-plus.firebaseapp.com",
+			databaseURL: "https://kjc-mca-plus.firebaseio.com",
+			projectId: "kjc-mca-plus",
+			storageBucket: "kjc-mca-plus.appspot.com",
+			messagingSenderId: "456589900870",
+			appId: "1:456589900870:web:b6a7f591c2b2bfae979e47",
+			measurementId: "G-Z7BVL55S2Y"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		firebase.analytics();
+		</script>
+		<script src="/scripts/teachers.js"/>
+	</body>
+</html>
