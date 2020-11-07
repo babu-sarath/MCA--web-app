@@ -50,6 +50,9 @@
 					<a href="#" class="nav-link mb-2 ">
 						<i class="fas fa-rupee-sign mx-1"></i> Payment
 					</a>
+					<a href="/notes/notes.html" class="nav-link mb-2 ">
+                        <i class="fas fa-rupee-sign mx-1"></i> Notes
+                    </a>
 					<a href="#" class="nav-link logout mx-1 mt-5">
 						<i class="fas fa-sign-out-alt"></i> Logout
 					</a>
@@ -135,76 +138,6 @@
 			integrity="sha512-qeZm7dcb/ZzFPcKeDm6ATjquEQGPPOV4wtt8wbrinfdRjWgl9vwAIjZQj8mvc3qCyz9IW3mLZH5QnkhK5aeTBg=="
 			crossorigin="anonymous"
 		></script>
-
-		<script>
-			//declaring a global variables so can be accessed outside
-			let json_object = null
-			let XL_row_object = null
-
-			$(document).ready(function () {
-				//hide th table on page load
-				$('#teacherTable').addClass('d-none')
-
-				// To convert excel to json
-				$('#fileUploader').change(function (evt) {
-					let filename = this.value
-					let lastIndex = filename.lastIndexOf('\\')
-					if (lastIndex >= 0) {
-						filename = filename.substring(lastIndex + 1)
-					}
-					document.getElementById('filename').value = filename
-
-					let selectedFile = evt.target.files[0]
-					let reader = new FileReader()
-					reader.onload = function (event) {
-						let data = event.target.result
-						let workbook = XLSX.read(data, {
-							type: 'binary',
-						})
-						workbook.SheetNames.forEach(function (sheetName) {
-							XL_row_object = XLSX.utils.sheet_to_row_object_array(
-								workbook.Sheets[sheetName]
-							) //json object
-							json_object = JSON.stringify(XL_row_object) //json object to string
-							fill_table(XL_row_object)
-						})
-					}
-
-					reader.onerror = function (event) {
-						console.error(
-							'File could not be read! Code ' +
-								event.target.error.code
-						)
-					}
-					reader.readAsBinaryString(selectedFile)
-				})
-			})
-			//calling click on file upload
-			$('#attachButton').click((e) => {
-				$('#fileUploader').click()
-			})
-
-			//function to load table with json data
-			function fill_table(jsonData) {
-				$('#teacherTable').DataTable({
-					data: jsonData,
-					columns: [
-						{ data: 'Name' },
-						{ data: 'DOB' },
-						{ data: 'Email' },
-						{ data: 'Phone No' },
-						{ data: 'ClassID' },
-						{ data: 'Subjects' },
-						{ data: 'Created at' },
-					],
-				})
-				$('#teacherTable').removeClass('d-none')
-			}
-
-			function test() {
-				alert('Hello')
-			}
-		</script>
 
 				<!-- The core Firebase JS SDK is always required and must be listed first -->
 		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>

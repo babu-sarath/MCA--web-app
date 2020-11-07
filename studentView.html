@@ -35,10 +35,10 @@
 					<hr style="background-color: honeydew" />
 				</div>
 				<div class="list-group list-group-flush">
-					<a href="#" class="nav-link">
+					<a href="index.html" class="nav-link active">
 						<i class="fas fa-user-graduate mx-1"></i> Student
 					</a>
-					<a href="teacher.html" class="nav-link active">
+					<a href="#" class="nav-link">
 						<i class="fas fa-chalkboard-teacher mx-1"></i> Teacher
 					</a>
 					<a href="#" class="nav-link">
@@ -49,8 +49,8 @@
 					</a>
 					<a href="#" class="nav-link">
 						<i class="fas fa-rupee-sign mx-1"></i> Payment
-					</a>
-					<a href="/notes/notes.html" class="nav-link mb-2 ">
+                    </a>
+                    <a href="/notes/notes.html" class="nav-link mb-2 ">
                         <i class="fas fa-rupee-sign mx-1"></i> Notes
                     </a>
 					<a href="#" class="nav-link logout mx-1 mt-5">
@@ -67,11 +67,11 @@
 				>
 					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 						<li class="nav-item mx-3">
-							<a class="nav-link" href="teacher.html">Create</a>
+							<a class="nav-link" href="index.html">Create</a>
 						</li>
 						<li class="nav-item mx-3">
-							<a class="nav-link" href="teacherAssign.html"
-								>Assign</a
+							<a class="nav-link" href="studentedit.html"
+								>Edit</a
 							>
 						</li>
 						<li class="nav-item mx-3">
@@ -81,13 +81,13 @@
 				</nav>
 
 				<div class="container-fluid px-5">
-					<h4 class="mt-4">Search Teachers</h4>
+					<h4 class="mt-4">Search Students</h4>
 					<div class="row mt-4">
 						<div class="form-inline">
 							<input
 								type="text"
 								class="form-control mx-2"
-								placeholder="Teacher ID"
+								placeholder="Reg. No."
 							/>
 							<input
 								type="email"
@@ -95,10 +95,10 @@
 								placeholder="Email"
 							/>
 							<select class="custom-select mx-2">
-								<option selected>Select Class</option>
-								<option value="1">One</option>
-								<option value="2">Two</option>
-								<option value="3">Three</option>
+								<option selected>Class</option>
+								<option value="1">1st year</option>
+								<option value="2">2nd year</option>
+								<option value="3">3rd year</option>
 							</select>
 							<button class="btn btn-color-dark mx-2">
 								Search
@@ -106,82 +106,82 @@
 						</div>
 					</div>
 					<div class="mt-5">
-						<table id="teacherTable" class="table mt-5">
+						<table id="studentTable" class="table mt-5">
 							<thead>
 								<tr>
+									<th>Reg.No.</th>
 									<th>Name</th>
-									<th>DOB</th>
 									<th>Email</th>
 									<th>Phone No</th>
-									<th>ClassID</th>
-									<th>Subjects</th>
+									<th>Class</th>
+									<th>DOB</th>
 									<th>Created at</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td>Tiger Nixon</td>
-									<td>System Architect</td>
-									<td>Edinburgh</td>
-									<td>61</td>
-									<td>2011/04/25</td>
-									<td>$320,800</td>
+									<td>19CS101</td>
+									<td>Tiger Nixont</td>
+									<td>Tiger@gmail.com</td>
+									<td>987654321</td>
+									<td>1st year</td>
+									<td>22/03/1997</td>
 									<td>$205,500</td>
 								</tr>
 								<tr>
-									<td>Garrett Winters</td>
-									<td>Accountant</td>
-									<td>Tokyo</td>
-									<td>63</td>
-									<td>2011/07/25</td>
-									<td>$170,750</td>
+									<td>19CS102</td>
+									<td>Joy</td>
+									<td>joy@gmail.com</td>
+									<td>9872572824</td>
+									<td>1st year</td>
+									<td>12/05/1997</td>
 									<td>$205,500</td>
 								</tr>
 								<tr>
-									<td>Ashton Cox</td>
-									<td>Junior Technical Author</td>
-									<td>San Francisco</td>
-									<td>66</td>
-									<td>2009/01/12</td>
-									<td>$86,000</td>
+									<td>19CS103</td>
+									<td>Sam</td>
+									<td>sam@gmail.com</td>
+									<td>6497513424</td>
+									<td>2nd year</td>
+									<td>05/05/1996</td>
 									<td>$205,500</td>
 								</tr>
 								<tr>
-									<td>Cedric Kelly</td>
-									<td>Senior Javascript Developer</td>
-									<td>Edinburgh</td>
-									<td>22</td>
-									<td>2012/03/29</td>
-									<td>$433,060</td>
+									<td>19CS104</td>
+									<td>Tim</td>
+									<td>tim@gmail.com</td>
+									<td>6898532478</td>
+									<td>2nd year</td>
+									<td>28/08/1996</td>
 									<td>$205,500</td>
 								</tr>
 								<tr>
-									<td>Airi Satou</td>
-									<td>Accountant</td>
-									<td>Tokyo</td>
-									<td>33</td>
-									<td>2008/11/28</td>
-									<td>$162,700</td>
+									<td>19CS105</td>
+									<td>Chan</td>
+									<td>chan@gmail.com</td>
+									<td>8754123578</td>
+									<td>3rd year</td>
+									<td>15/02/1995</td>
 									<td>$205,500</td>
 								</tr>
 								<tr>
-									<td>Brielle Williamson</td>
-									<td>Integration Specialist</td>
-									<td>New York</td>
-									<td>61</td>
-									<td>2012/12/02</td>
-									<td>$372,000</td>
+									<td>19CS101</td>
+									<td>Monica</td>
+									<td>mon@gmail.com</td>
+									<td>952868741</td>
+									<td>3rd year</td>
+									<td>17/05/1995</td>
 									<td>$205,500</td>
 								</tr>
 							</tbody>
 							<tfoot>
 								<tr>
+									<th>Reg.No</th>
 									<th>Name</th>
-									<th>DOB</th>
 									<th>Email</th>
 									<th>Phone No</th>
 									<th>ClassID</th>
-									<th>Subjects</th>
+									<th>DOB</th>
 									<th>Created at</th>
 								</tr>
 							</tfoot>
@@ -214,7 +214,7 @@
 
 		<script>
 			$(document).ready(function () {
-				$('#teacherTable').DataTable()
+				$('#studentTable').DataTable()
 			})
 		</script>
 	</body>

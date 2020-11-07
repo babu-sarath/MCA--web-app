@@ -41,7 +41,7 @@
 					<a href="../teacher/teacher.html" class="nav-link mb-2 ">
 						<i class="fas fa-chalkboard-teacher mx-1"></i> Teacher
 					</a>
-					<a href="#" class="nav-link mb-2 active">
+					<a href="#" class="nav-link mb-2">
 						<i class="fas fa-chalkboard mx-1"></i> Classes
 					</a>
 					<a href="#" class="nav-link mb-2 ">
@@ -50,7 +50,7 @@
 					<a href="#" class="nav-link mb-2 ">
 						<i class="fas fa-rupee-sign mx-1"></i> Payment
 					</a>
-					<a href="/notes/notes.html" class="nav-link mb-2 ">
+					<a href="/notes/notes.html" class="nav-link mb-2  active">
                         <i class="fas fa-rupee-sign mx-1"></i> Notes
                     </a>
 					<a href="#" class="nav-link logout mx-1 mt-5">
@@ -67,41 +67,32 @@
 				>
 					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 						<li class="nav-item mx-3">
-							<a class="nav-link" href="class.html">Create</a>
-						</li>
-						<li class="nav-item mx-3">
-							<a class="nav-link" href="viewClass.html">View</a>
-						</li>
-						<li class="nav-item mx-3">
-							<a class="nav-link active" href="payments.html">Payment</a>
+							<a class="nav-link active" href="notes.html">View Notes</a>
 						</li>
 					</ul>
 				</nav>
 
 				<div class="container-fluid px-5">
-					<h4 class="mt-4">Add Teacher</h4>
-					<form id="class">
-						<div class="row mt-4">
-							<div class="form-inline">
-								<select class="custom-select mx-2">
-									<option selected>Events</option>
-									<option value="1">Christmas Celebration</option>
-									<option value="2">Teacher's Day</option>
-									<option value="3">Fresher's Day</option>
-								</select>
-								<select class="custom-select mx-2">
-									<option selected>Class</option>
-									<option value="1">1stYear</option>
-									<option value="2">2nd Year</option>
-									<option value="3">3rd Year</option>
-								</select>
-							</div>
-						</div>
-						<button class="btn btn-color-dark mt-3">
-							Search
-						</button>
-					</form>
-					<p id="jsonObject"></p>
+					<div class="row mt-4">
+						<form id="notes">
+                             <select class="custom-select mt-2">
+                                <option selected>Subjects</option>
+                                <option value="IoT">IOT</option>
+                                <option value="SPM">SPM</option>
+                                <option value="PYTHOM">PYTHON</option>
+                                <option value="APP">APP</option>
+                              </select>
+                              <select class="custom-select mt-3">
+                                <option selected>Class</option>
+                                <option value="1">1stYear</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                             </select>
+								<button class="btn btn-color-dark mt-2" type="submit">
+									Search
+								</button>
+						</form>
+					</div>
 				</div>
 			</div>
 			<!-- /#page-content-wrapper -->
