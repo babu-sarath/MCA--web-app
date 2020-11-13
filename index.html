@@ -78,14 +78,11 @@
 					<form id="createStudent">
 						<div class="row mt-4">
 							<div class="form-inline">
-								<input id="Reg. No." type="text" class="form-control mx-2" placeholder="Reg. No." required/>
+								<input id="RegNo" type="text" class="form-control mx-2" placeholder="Reg. No." required/>
 								<input id="name" type="text" class="form-control mx-2" placeholder="Name" required/>
 								<input id="dob" type="text" class="form-control mx-2" placeholder="DOB" required/>
-								<select class="custom-select mx-2">
+								<select class="custom-select mx-2" id="classDropdown">
 									<option selected>Class</option>
-									<option value="1">1stYear</option>
-									<option value="2">2nd Year</option>
-									<option value="3">3rd Year</option>
 								</select>
 							</div>
 
@@ -150,44 +147,34 @@
 			crossorigin="anonymous"
 		></script>
 
-		<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+			https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
 
-<script>
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var firebaseConfig = {
-    apiKey: "AIzaSyDYaQ26PXTWNH3DAuG8teZWIgh9AuD4zO8",
-    authDomain: "mcaplusclass.firebaseapp.com",
-    databaseURL: "https://mcaplusclass.firebaseio.com",
-    projectId: "mcaplusclass",
-    storageBucket: "mcaplusclass.appspot.com",
-    messagingSenderId: "696986830545",
-    appId: "1:696986830545:web:8d4a491481f27daa4f67f0",
-    measurementId: "G-GBLS6X23XK"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+		<script>
+		// Your web app's Firebase configuration
+		// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+		var firebaseConfig = {
+			apiKey: "AIzaSyAO1UpIZCXavicZ185nFJMhsqDq-nLITvE",
+			authDomain: "kjc-mca-plus.firebaseapp.com",
+			databaseURL: "https://kjc-mca-plus.firebaseio.com",
+			projectId: "kjc-mca-plus",
+			storageBucket: "kjc-mca-plus.appspot.com",
+			messagingSenderId: "456589900870",
+			appId: "1:456589900870:web:b6a7f591c2b2bfae979e47",
+			measurementId: "G-Z7BVL55S2Y"
+		};
+		// // Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		firebase.analytics();
+		</script>
 
-  //make auth and firestore refrence 
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-
-
-  // update firestore setting
-  db.settings({ timestampInSnapshot: true });
-
-</script>
 	<!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script src="scripts/auth.js"></script>
-<script src="scripts/index.js"></script>
+<script src="./scripts/index.js"></script>
 
 </html>

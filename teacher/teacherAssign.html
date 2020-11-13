@@ -78,22 +78,13 @@
 					<h4 class="mt-4">Assign Teacher</h4>
 					<div class="row mt-4">
 						<div class="form-inline">
-							<input
-								type="text"
-								class="form-control mx-2"
-								placeholder="Teacher ID"
+							<input id="teacher" type="text" class="form-control mx-2" placeholder="Teacher ID"
 							/>
-							<select class="custom-select mx-2">
+							<select id="classDropdown" class="custom-select mx-2">
 								<option selected>Select Class</option>
-								<option value="1">One</option>
-								<option value="2">Two</option>
-								<option value="3">Three</option>
 							</select>
-							<select class="custom-select mx-2">
+							<select id="subjectDropdown" class="custom-select mx-2">
 								<option selected>Select Subject</option>
-								<option value="1">One</option>
-								<option value="2">Two</option>
-								<option value="3">Three</option>
 							</select>
 							<button class="btn btn-color-dark mx-2">
 								Assign
@@ -203,5 +194,97 @@
 			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 			crossorigin="anonymous"
 		></script>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+			https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+
+		<script>
+		// Your web app's Firebase configuration
+		// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+		var firebaseConfig = {
+			apiKey: "AIzaSyAO1UpIZCXavicZ185nFJMhsqDq-nLITvE",
+			authDomain: "kjc-mca-plus.firebaseapp.com",
+			databaseURL: "https://kjc-mca-plus.firebaseio.com",
+			projectId: "kjc-mca-plus",
+			storageBucket: "kjc-mca-plus.appspot.com",
+			messagingSenderId: "456589900870",
+			appId: "1:456589900870:web:b6a7f591c2b2bfae979e47",
+			measurementId: "G-Z7BVL55S2Y"
+		};
+		// // Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		firebase.analytics();
+
+		const db=firebase.firestore()
+
+		</script>
+
+		<script>
+			$(document).ready(() => {
+				const queryString = window.location.search;
+				const urlParams = new URLSearchParams(queryString);
+				const teacherID = urlParams.get('id')
+				$('#teacher').val(teacherID)
+				$("#teacher").attr("disabled", "disabled"); 
+
+				loadClassSelect()
+
+				$('#classDropdown').on('change', function() {
+					loadSubject(this.value)
+				});
+			})
+
+			function loadClassSelect(){
+				db.collection('classes')
+					.get()
+					.then((querySnapshot) => {
+						querySnapshot.forEach((doc) => {
+							// doc.data() is never undefined for qu	ery doc snapshots
+							console.log(doc.id, ' => ', doc.data())
+							$('#classDropdown').append(
+								'<option value="' +
+									doc.id +
+									'">' +
+									doc.data().className +
+									'</option>'
+							)
+						})
+					})
+					.catch((error) => {
+						console.log('Error getting documents: ', error)
+					})
+			}
+
+			function loadSubject(selectedClass){
+				db.collection('classes')
+					.doc(selectedClass)
+					.get()
+					.then((doc) => {
+						// console.log(doc.data())
+						// querySnapshot.forEach((doc) => {
+						// 	console.log(doc.data())
+						// 	// doc.data() is never undefined for qu	ery doc snapshots
+						// 	console.log(doc.id, ' => ', doc.data())
+						// 	$('#subjectDropdown').append(
+						// 		'<option value="' +
+						// 			doc.data().subject +
+						// 			'">' +
+						// 			doc.data().subject +
+						// 			'</option>'
+						// 	)
+						// })
+					})
+					.catch((error) => {
+						console.log('Error getting documents: ', error)
+					})
+			}
+		</script>
+
 	</body>
 </html>

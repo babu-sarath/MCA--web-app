@@ -27,6 +27,9 @@ $('#createTeacher').submit((e) => {
 			auth.createUserWithEmailAndPassword(emailVal, passwordVal)
 				.then((user) => {
 					console.log('Created User', user)
+					window.location.replace(
+						'../teacher/teacherAssign.html?id=' + id
+					)
 				})
 				.catch((error) => {
 					console.log('Error ', error)
