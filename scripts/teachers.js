@@ -1,6 +1,3 @@
-let db = firebase.firestore()
-let auth = firebase.auth()
-
 $('#createTeacher').submit((e) => {
 	e.preventDefault()
 	let id = $('#teacherID').val()

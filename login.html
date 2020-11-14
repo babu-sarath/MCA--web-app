@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <div class="col-md-5">
+        <h3>Login</h3>
+        <form id="form"> 
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="inputMail" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="inputPass" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-functions.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: 'AIzaSyAO1UpIZCXavicZ185nFJMhsqDq-nLITvE',
+            authDomain: 'kjc-mca-plus.firebaseapp.com',
+            databaseURL: 'https://kjc-mca-plus.firebaseio.com',
+            projectId: 'kjc-mca-plus',
+            storageBucket: 'kjc-mca-plus.appspot.com',
+            messagingSenderId: '456589900870',
+            appId: '1:456589900870:web:b6a7f591c2b2bfae979e47',
+            measurementId: 'G-Z7BVL55S2Y',
+        }
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig)
+        }
+
+        //make auth and functions references
+        const auth = firebase.auth()
+    </script>
+    <script>
+        $("#form").submit((e)=>{
+            
+            e.preventDefault();
+            var email = $('#inputMail').val();
+            var password = $('#inputPass').val();
+            
+            auth.signInWithEmailAndPassword(email, password).then(user=>{
+                window.location.replace("index.html")
+            }).catch((error)=>{
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorCode);
+                alert(errorMessage);
+            });
+
+        });
+    </script>
+
+</body>
+</html>

@@ -1,6 +1,3 @@
-let db = firebase.firestore()
-let auth = firebase.auth()
-
 $(document).ready(() => {
 	loadSelect()
 })
@@ -29,19 +26,41 @@ $('#createStudent').submit((e) => {
 		})
 		.then(() => {
 			console.log('Document successfully written!')
-			auth.createUserWithEmailAndPassword(emailVal, passwordVal)
-				.then((user) => {
-					console.log('Created User', user)
-				})
-				.catch((error) => {
-					console.log('Error ', error)
-				})
 
-			$('#createTeacher').trigger('reset')
+			//calling cloud function to create a user in firebase with the email and password
+			const functions = firebase.functions()
+			const addUser = functions.httpsCallable('createNewUser')
+			addUser({ email: emailVal, password: passwordVal }).then(
+				(result) => {
+					console.log(result)
+				}
+			)
+			$('#createStudent').trigger('reset')
 		})
 		.catch((error) => {
 			console.error('Error writing document: ', error)
 		})
+})
+
+//admin creation
+$('#createAdmin').submit((e) => {
+	e.preventDefault()
+	let emailVal = $('#emailAdmin').val()
+
+	//calling cloud function to create another admin in firebase with the email
+	const functions = firebase.functions()
+	const addAdminRole = functions.httpsCallable('addAdminRole')
+	addAdminRole({ email: emailVal }).then((result) => {
+		console.log(result)
+		var res = result.data
+		var found = res.includes('Error')
+		if (found) {
+			console.log(res)
+			return
+		}
+		console.log(res)
+		return
+	})
 })
 
 function loadSelect() {

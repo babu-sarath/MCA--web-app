@@ -1,6 +1,3 @@
-let db = firebase.firestore()
-let auth = firebase.auth()
-
 $(document).ready(() => {
 	loadSelect()
 })
