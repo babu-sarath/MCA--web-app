@@ -30,11 +30,13 @@ $('#createStudent').submit((e) => {
 			//calling cloud function to create a user in firebase with the email and password
 			const functions = firebase.functions()
 			const addUser = functions.httpsCallable('createNewUser')
-			addUser({ email: emailVal, password: passwordVal }).then(
-				(result) => {
-					console.log(result)
-				}
-			)
+			addUser({
+				email: emailVal,
+				password: passwordVal,
+				displayName: name,
+			}).then((result) => {
+				console.log(result)
+			})
 			$('#createStudent').trigger('reset')
 		})
 		.catch((error) => {

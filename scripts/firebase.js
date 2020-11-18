@@ -21,7 +21,7 @@ const db = firebase.firestore()
 
 auth.onAuthStateChanged((user) => {
 	console.log(user)
-	if (user.uid != '63zuDESUJAUeYHyAi1OAvgpCc3A2') {
+	if (user == null || user.uid != '63zuDESUJAUeYHyAi1OAvgpCc3A2') {
 		window.location.href = 'login.html'
 	}
 })

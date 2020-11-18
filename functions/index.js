@@ -68,6 +68,7 @@ exports.createNewUser = functions.https.onCall((data, context) => {
 			email: data.email,
 			password: data.password,
 			emailVerified: true,
+			displayName: data.displaName,
 		})
 		.then(function (userRecord) {
 			return 'User created'

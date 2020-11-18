@@ -21,17 +21,16 @@ $('#createTeacher').submit((e) => {
 		.then(() => {
 			console.log('Document successfully written!')
 
-			auth.createUserWithEmailAndPassword(emailVal, passwordVal)
-				.then((user) => {
-					console.log('Created User', user)
-					window.location.replace(
-						'../teacher/teacherAssign.html?id=' + id
-					)
-				})
-				.catch((error) => {
-					console.log('Error ', error)
-				})
-
+			//calling cloud function to create a user in firebase with the email and password
+			const functions = firebase.functions()
+			const addUser = functions.httpsCallable('createNewUser')
+			addUser({
+				email: emailVal,
+				password: passwordVal,
+				displayName: nameVal,
+			}).then((result) => {
+				console.log(result)
+			})
 			$('#createTeacher').trigger('reset')
 		})
 		.catch((error) => {

@@ -15,6 +15,11 @@
 			crossorigin="anonymous"
 		/>
 
+		<link
+			rel="stylesheet"
+			href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"
+		/>
+
 		<link rel="stylesheet" href="/css/style.css" />
 		<title>Admin Dashboard</title>
 	</head>
@@ -76,7 +81,7 @@
 
 				<div class="container-fluid px-5">
 					<h4 class="mt-4">Assign Teacher</h4>
-					<div class="row mt-4">
+					<div class="row my-4">
 						<div class="form-inline">
 							<input id="teacher" type="text" class="form-control mx-2" placeholder="Teacher ID"
 							/>
@@ -92,89 +97,88 @@
 						</div>
 					</div>
 
-					<table id="teacherTable" class="table mt-5">
+					<table id="teacherTable" class="table">
 						<thead>
 							<tr>
+								<th>Teacher ID</th>
 								<th>Name</th>
-								<th>DOB</th>
 								<th>Email</th>
 								<th>Phone No</th>
-								<th>ClassID</th>
+								<th>DOB</th>
+								<th>Class</th>
 								<th>Subjects</th>
-								<th>Created at</th>
+								<th>Action</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td>Tiger Nixon</td>
-								<td>System Architect</td>
-								<td>Edinburgh</td>
-								<td>61</td>
-								<td>2011/04/25</td>
-								<td>$320,800</td>
-								<td>$205,500</td>
-							</tr>
-							<tr>
-								<td>Garrett Winters</td>
-								<td>Accountant</td>
-								<td>Tokyo</td>
-								<td>63</td>
-								<td>2011/07/25</td>
-								<td>$170,750</td>
-								<td>$205,500</td>
-							</tr>
-							<tr>
-								<td>Ashton Cox</td>
-								<td>Junior Technical Author</td>
-								<td>San Francisco</td>
-								<td>66</td>
-								<td>2009/01/12</td>
-								<td>$86,000</td>
-								<td>$205,500</td>
-							</tr>
-							<tr>
-								<td>Cedric Kelly</td>
-								<td>Senior Javascript Developer</td>
-								<td>Edinburgh</td>
-								<td>22</td>
-								<td>2012/03/29</td>
-								<td>$433,060</td>
-								<td>$205,500</td>
-							</tr>
-							<tr>
-								<td>Airi Satou</td>
-								<td>Accountant</td>
-								<td>Tokyo</td>
-								<td>33</td>
-								<td>2008/11/28</td>
-								<td>$162,700</td>
-								<td>$205,500</td>
-							</tr>
-							<tr>
-								<td>Brielle Williamson</td>
-								<td>Integration Specialist</td>
-								<td>New York</td>
-								<td>61</td>
-								<td>2012/12/02</td>
-								<td>$372,000</td>
-								<td>$205,500</td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<th>Name</th>
-								<th>DOB</th>
-								<th>Email</th>
-								<th>Phone No</th>
-								<th>ClassID</th>
-								<th>Subjects</th>
-								<th>Created at</th>
-							</tr>
-						</tfoot>
+						
 					</table>
 				</div>
 			</div>
 			<!-- /#page-content-wrapper -->
+
+			<!-- Modal -->
+			<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form id="editForm">
+						<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Edit Details</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						</div>
+						<div class="modal-body">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="">Teacher ID</span>
+								</div>
+								<input type="text" id="regno" class="form-control" readonly/>
+							</div>
+							<div class="input-group  mt-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="">Name</span>
+								</div>
+								<input type="text" id="name" class="form-control"/>
+							</div>
+							<div class="input-group  mt-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="">Email</span>
+								</div>
+								<input type="email" id="email" class="form-control" readonly/>
+							</div>
+							<div class="input-group  mt-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="">DOB</span>
+								</div>
+								<input type="text" id="dob" class="form-control"/>
+							</div>
+							<div class="input-group  mt-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="">Phone No.</span>
+								</div>
+								<input type="text" id="phone" class="form-control"/>
+							</div>
+							
+							<!-- <input type="text" id="class" class="form-control mt-2"/> -->
+							<div class="input-group mt-2">
+								<div class="input-group-prepend">
+									<select id="classDropdown" class="custom-select dropdown-toggle">
+										<option value="0" selected>Select Class</option>
+									</select>
+								</div>
+								<input type="text" id="class" class="form-control" aria-label="Text input with dropdown button" readonly>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Save changes</button>
+						</div>
+					</form>
+				</div>
+				</div>
+			</div>
+
 		</div>
 		<!-- /#wrapper -->
 
@@ -194,17 +198,17 @@
 			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 			crossorigin="anonymous"
 		></script>
-
+		<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 		<!-- The core Firebase JS SDK is always required and must be listed first -->
 		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
-
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-functions.js"></script>
 		<!-- TODO: Add SDKs for Firebase products that you want to use
 			https://firebase.google.com/docs/web/setup#available-libraries -->
 		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
 
-		<script src="./scripts/firebase.js"></script>
+		<script src="../scripts/firebase.js"></script>
 		<script>
 			$(document).ready(() => {
 				const queryString = window.location.search;
@@ -218,6 +222,73 @@
 				$('#classDropdown').on('change', function() {
 					loadSubject(this.value)
 				});
+
+				let dataSet =  []
+				db.collection("users").where("userType","==","teacher").get().then((querySnapshot)=>{
+					querySnapshot.forEach((doc)=> {
+						dataSet.push([doc.id,doc.data().name,doc.data().email,doc.data().phone,doc.data().dob,doc.data().class,doc.data().subjects])
+					})
+
+					$('#teacherTable').DataTable({
+						data: dataSet,
+						columns: [
+							{title: 'Teacher ID'},
+							{ title: 'Name' },
+							{ title: 'Email' },
+							{ title: 'Phone No' },
+							{ title: 'DOB' },
+							{ title: 'Class' },
+							{ title: 'Subjects' },
+							{
+								data: null,
+								className: "center",
+								defaultContent: '<a href="" class="editor_edit" id="edit" data-toggle="modal" data-target="#editModal">Edit</a> | <a href="" class="editor_remove" id="delete">Delete</a>'
+							}
+							    
+						],
+						
+					})
+
+				})
+
+				//DELETE
+				$('#teacherTable').on('click', 'a.editor_remove', function(e){
+					e.preventDefault();
+					let regno = $('td:first', $(this).parents('tr')).text()
+					let tid = '#'+ $(this).attr('id')
+					let emailVal = $(this).closest('tr').find('td:eq(2)').text()
+
+					db.collection("users").doc(regno).delete().then(()=> {	
+						console.log("Document successfully deleted!");
+
+						const functions = firebase.functions()
+						const removeUser = functions.httpsCallable('deleteUserAdmin')
+						removeUser({
+							email: emailVal
+						}).then((result) => {
+							console.log(result)
+						})
+						$(this).parents('tr').remove()
+					}).catch((error)=> {
+						console.error("Error removing document: ", error);
+					})
+				})
+
+				//EDIT
+				$('#teacherTable').on('click', 'a.editor_edit', function(e) {
+					e.preventDefault();
+					let tid = $('td:first', $(this).parents('tr')).text()
+					let name = $(this).closest('tr').find('td:eq(1)').text()
+					let email = $(this).closest('tr').find('td:eq(2)').text()
+					let phoneNo = $(this).closest('tr').find('td:eq(3)').text()
+					let dob= $(this).closest('tr').find('td:eq(4)').text()
+					// loadSelect()
+					$('#regno').val(tid)
+					$('#name').val(name)
+					$('#email').val(email)
+					$('#phone').val(phoneNo)
+					$('#dob').val(dob)
+				})
 			})
 
 			function loadClassSelect(){
@@ -234,6 +305,7 @@
 									doc.data().className +
 									'</option>'
 							)
+							loadSubject(doc.id)
 						})
 					})
 					.catch((error) => {
@@ -242,27 +314,28 @@
 			}
 
 			function loadSubject(selectedClass){
-				db.collection('classes')
-					.doc(selectedClass)
-					.get()
-					.then((doc) => {
-						// console.log(doc.data())
-						// querySnapshot.forEach((doc) => {
-						// 	console.log(doc.data())
-						// 	// doc.data() is never undefined for qu	ery doc snapshots
-						// 	console.log(doc.id, ' => ', doc.data())
-						// 	$('#subjectDropdown').append(
-						// 		'<option value="' +
-						// 			doc.data().subject +
-						// 			'">' +
-						// 			doc.data().subject +
-						// 			'</option>'
-						// 	)
-						// })
-					})
-					.catch((error) => {
-						console.log('Error getting documents: ', error)
-					})
+				
+				// db.collection('classes')
+				// 	.doc(selectedClass)
+				// 	.get()
+				// 	.then((doc) => {
+				// 		// console.log(doc.data())
+				// 		// querySnapshot.forEach((doc) => {
+				// 		// 	console.log(doc.data())
+				// 		// 	// doc.data() is never undefined for qu	ery doc snapshots
+				// 		// 	console.log(doc.id, ' => ', doc.data())
+				// 		// 	$('#subjectDropdown').append(
+				// 		// 		'<option value="' +
+				// 		// 			doc.data().subject +
+				// 		// 			'">' +
+				// 		// 			doc.data().subject +
+				// 		// 			'</option>'
+				// 		// 	)
+				// 		// })
+				// 	})
+				// 	.catch((error) => {
+				// 		console.log('Error getting documents: ', error)
+				// 	})
 			}
 		</script>
 

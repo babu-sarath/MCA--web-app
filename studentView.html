@@ -67,124 +67,30 @@
 				>
 					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 						<li class="nav-item mx-3">
-							<a class="nav-link" href="index.html">Create</a>
+							<a class="nav-link" href="index.html">Create Student</a>
 						</li>
 						<li class="nav-item mx-3">
-							<a class="nav-link" href="studentedit.html"
-								>Edit</a
-							>
-						</li>
-						<li class="nav-item mx-3">
-							<a class="nav-link active" href="#">View</a>
+							<a class="nav-link active" href="#">View All Students</a>
 						</li>
 					</ul>
 				</nav>
 
 				<div class="container-fluid px-5">
 					<h4 class="mt-4">Search Students</h4>
-					<div class="row mt-4">
-						<div class="form-inline">
-							<input
-								type="text"
-								class="form-control mx-2"
-								placeholder="Reg. No."
-							/>
-							<input
-								type="email"
-								class="form-control mx-2"
-								placeholder="Email"
-							/>
-							<select class="custom-select mx-2">
-								<option selected>Class</option>
-								<option value="1">1st year</option>
-								<option value="2">2nd year</option>
-								<option value="3">3rd year</option>
-							</select>
-							<button class="btn btn-color-dark mx-2">
-								Search
-							</button>
-						</div>
-					</div>
-					<div class="mt-5">
+					<div class="mt-4">
 						<table id="studentTable" class="table mt-5">
 							<thead>
 								<tr>
-									<th>Reg.No.</th>
+									<th>RegNo</th>
 									<th>Name</th>
 									<th>Email</th>
 									<th>Phone No</th>
 									<th>Class</th>
 									<th>DOB</th>
-									<th>Created at</th>
+									<th>Action</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>19CS101</td>
-									<td>Tiger Nixont</td>
-									<td>Tiger@gmail.com</td>
-									<td>987654321</td>
-									<td>1st year</td>
-									<td>22/03/1997</td>
-									<td>$205,500</td>
-								</tr>
-								<tr>
-									<td>19CS102</td>
-									<td>Joy</td>
-									<td>joy@gmail.com</td>
-									<td>9872572824</td>
-									<td>1st year</td>
-									<td>12/05/1997</td>
-									<td>$205,500</td>
-								</tr>
-								<tr>
-									<td>19CS103</td>
-									<td>Sam</td>
-									<td>sam@gmail.com</td>
-									<td>6497513424</td>
-									<td>2nd year</td>
-									<td>05/05/1996</td>
-									<td>$205,500</td>
-								</tr>
-								<tr>
-									<td>19CS104</td>
-									<td>Tim</td>
-									<td>tim@gmail.com</td>
-									<td>6898532478</td>
-									<td>2nd year</td>
-									<td>28/08/1996</td>
-									<td>$205,500</td>
-								</tr>
-								<tr>
-									<td>19CS105</td>
-									<td>Chan</td>
-									<td>chan@gmail.com</td>
-									<td>8754123578</td>
-									<td>3rd year</td>
-									<td>15/02/1995</td>
-									<td>$205,500</td>
-								</tr>
-								<tr>
-									<td>19CS101</td>
-									<td>Monica</td>
-									<td>mon@gmail.com</td>
-									<td>952868741</td>
-									<td>3rd year</td>
-									<td>17/05/1995</td>
-									<td>$205,500</td>
-								</tr>
-							</tbody>
-							<tfoot>
-								<tr>
-									<th>Reg.No</th>
-									<th>Name</th>
-									<th>Email</th>
-									<th>Phone No</th>
-									<th>ClassID</th>
-									<th>DOB</th>
-									<th>Created at</th>
-								</tr>
-							</tfoot>
+							
 						</table>
 					</div>
 				</div>
@@ -192,6 +98,68 @@
 			<!-- /#page-content-wrapper -->
 		</div>
 		<!-- /#wrapper -->
+
+		<!-- Modal -->
+		<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form id="editForm">
+					<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Edit Details</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					</div>
+					<div class="modal-body">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="">RegNo</span>
+							</div>
+							<input type="text" id="regno" class="form-control" readonly/>
+						</div>
+						<div class="input-group  mt-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="">Name</span>
+							</div>
+							<input type="text" id="name" class="form-control"/>
+						</div>
+						<div class="input-group  mt-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="">Email</span>
+							</div>
+							<input type="email" id="email" class="form-control" readonly/>
+						</div>
+						<div class="input-group  mt-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="">DOB</span>
+							</div>
+							<input type="text" id="dob" class="form-control"/>
+						</div>
+						<div class="input-group  mt-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="">Phone No.</span>
+							</div>
+							<input type="text" id="phone" class="form-control"/>
+						</div>
+						
+						<!-- <input type="text" id="class" class="form-control mt-2"/> -->
+						<div class="input-group mt-2">
+							<div class="input-group-prepend">
+								<select id="classDropdown" class="custom-select dropdown-toggle">
+									<option value="0" selected>Select Class</option>
+								</select>
+							</div>
+							<input type="text" id="class" class="form-control" aria-label="Text input with dropdown button" readonly>
+						</div>
+					</div>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
+					</div>
+				</form>
+			</div>
+			</div>
+		</div>
 
 		<!-- Bootstrap core JavaScript -->
 		<script
@@ -210,11 +178,131 @@
 			crossorigin="anonymous"
 		></script>
 		<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-		
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-functions.js"></script>
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+			https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
 
+	<!-- Compiled and minified JavaScript -->
+	<script src="./scripts/firebase.js"></script>
 		<script>
+			let editor;
 			$(document).ready(function () {
-				$('#studentTable').DataTable()
+				let dataSet =  []
+
+				db.collection("users").where("userType","==","student").get().then((querySnapshot)=>{
+					querySnapshot.forEach((doc)=> {
+						dataSet.push([doc.id,doc.data().name,doc.data().email,doc.data().phone,doc.data().class,doc.data().dob])
+					})
+
+					$('#studentTable').DataTable({
+						data: dataSet,
+						columns: [
+							{title: 'RegNo'},
+							{ title: 'Name' },
+							{ title: 'Email' },
+							{ title: 'Phone No' },
+							{ title: 'Class' },
+							{ title: 'DOB' },
+							{
+								data: null,
+								className: "center",
+								defaultContent: '<a href="" class="editor_edit" id="edit" data-toggle="modal" data-target="#editModal">Edit</a> | <a href="" class="editor_remove" id="delete">Delete</a>'
+							}
+							    
+						],
+						
+					})
+
+				})
+
+				//DELETE
+				$('#studentTable').on('click', 'a.editor_remove', function(e){
+					e.preventDefault();
+					let regno = $('td:first', $(this).parents('tr')).text()
+					let tid = '#'+ $(this).attr('id')
+					let emailVal = $(this).closest('tr').find('td:eq(2)').text()
+
+					db.collection("users").doc(regno).delete().then(()=> {
+						
+						console.log("Document successfully deleted!");
+
+						const functions = firebase.functions()
+						const removeUser = functions.httpsCallable('deleteUserAdmin')
+						removeUser({
+							email: emailVal
+						}).then((result) => {
+							console.log(result)
+						})
+						$(this).parents('tr').remove()
+
+					}).catch((error)=> {
+						console.error("Error removing document: ", error);
+					})
+				})
+
+				//EDIT
+				$('#studentTable').on('click', 'a.editor_edit', function(e) {
+					e.preventDefault();
+					let regno = $('td:first', $(this).parents('tr')).text()
+					let name = $(this).closest('tr').find('td:eq(1)').text()
+					let email = $(this).closest('tr').find('td:eq(2)').text()
+					let phoneNo = $(this).closest('tr').find('td:eq(3)').text()
+					let studentClass = $(this).closest('tr').find('td:eq(4)').text()
+					let dob= $(this).closest('tr').find('td:eq(5)').text()
+					loadSelect()
+					$('#regno').val(regno)
+					$('#name').val(name)
+					$('#email').val(email)
+					$('#phone').val(phoneNo)
+					$('#class').val(studentClass)
+					$('#dob').val(dob)
+				})
+
+			})
+
+			function loadSelect() {
+				db.collection('classes')
+					.get()
+					.then((querySnapshot) => {
+						querySnapshot.forEach((doc) => {
+							// doc.data() is never undefined for qu	ery doc snapshots
+							console.log(doc.id, ' => ', doc.data())
+							$('#classDropdown').append(
+								'<option value="' +
+									doc.id +
+									'">' +
+									doc.data().className +
+									'</option>'
+							)
+						})
+					})
+					.catch((error) => {
+						console.log('Error getting documents: ', error)
+					})
+			}
+
+			$('#classDropdown').on('change', function() {
+				$('#class').val(this.value)
+			})
+
+			$('#editForm').submit((e)=>{
+				e.preventDefault()
+
+				db.collection('users').doc($('#regno').val()).update({
+					name: $('#name').val(),
+					dob: $('#dob').val(),
+					phone: $('#phone').val(),
+					class: $('#class').val(),
+				}).then(()=>{
+					console.log('update success')
+				}).catch((err)=>{
+					console.log(err)
+				})
+
 			})
 		</script>
 	</body>
