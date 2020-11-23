@@ -5,6 +5,7 @@ $(document).ready(() => {
 $('#createClass').submit((e) => {
 	e.preventDefault()
 	let id = $('#classCode').val()
+	let sem = $('#semester').val()
 	let nameVal = $('#className').val()
 
 	// Add a new document in collection "users"
@@ -12,10 +13,11 @@ $('#createClass').submit((e) => {
 		.doc(id)
 		.set({
 			className: nameVal,
+			semester: sem,
 		})
 		.then(() => {
 			console.log('Document successfully written!')
-			loadSelect()
+			location.reload()
 			$('#createTeacher').trigger('reset')
 		})
 		.catch((error) => {
@@ -26,40 +28,13 @@ $('#createClass').submit((e) => {
 $('#createSubject').submit((e) => {
 	e.preventDefault()
 	let subjectCode = $('#subjectCode').val()
-	let nameVal = $('#subjectName').val()
+	let nameVal = subjectCode + '-' + $('#subjectName').val()
 	let selectedClass = $('#classDropdown').val()
-
-	// alert(subjectCode + nameVal + selectedClass)
-	// db.collection('subjects')
-	// 	.doc(subjectCode)
-	// 	.set({
-	// 		subjectName: nameVal,
-	// 	})
-	// 	.then(() => {
-	// 		console.log('Document successfully inserted!')
-
-	// 		//update to class collection
-	// 		db.collection('classes')
-	// 			.doc(selectedClass)
-	// 			.update({
-	// 				subject: subjectCode,
-	// 			})
-	// 			.then(() => {
-	// 				console.log('Document successfully updated!')
-	// 				$('#createSubject').trigger('reset')
-	// 			})
-	// 			.catch((error) => {
-	// 				console.error('Error updating document: ', error)
-	// 			})
-	// 	})
-	// 	.catch((error) => {
-	// 		console.error('Error writing document: ', error)
-	// 	})
 
 	db.collection('classes')
 		.doc(selectedClass)
 		.update({
-			subject: subjectCode,
+			subject: firebase.firestore.FieldValue.arrayUnion(nameVal),
 		})
 		.then(() => {
 			console.log('Document successfully updated!')

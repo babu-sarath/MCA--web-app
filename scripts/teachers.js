@@ -17,6 +17,8 @@ $('#createTeacher').submit((e) => {
 			email: emailVal,
 			phone: phoneNoVal,
 			userType: userTypeVal,
+			class: 'not assigned',
+			subjects: 'not assigned',
 		})
 		.then(() => {
 			console.log('Document successfully written!')
@@ -30,8 +32,8 @@ $('#createTeacher').submit((e) => {
 				displayName: nameVal,
 			}).then((result) => {
 				console.log(result)
+				$('#createTeacher').trigger('reset')
 			})
-			$('#createTeacher').trigger('reset')
 		})
 		.catch((error) => {
 			console.error('Error writing document: ', error)

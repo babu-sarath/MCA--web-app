@@ -1,0 +1,283 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+			integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+			integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"
+		/>
+        <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+		<link rel="stylesheet" href="/css/style.css" />
+		<title>Admin Dashboard</title>
+	</head>
+	<body>
+		<div class="d-flex" id="wrapper">
+			<!-- Sidebar -->
+			<div class="border-right" id="sidebar-wrapper">
+				<div class="sidebar-heading">
+					<a href="../index.html">
+						<h4 class="text-white">
+							<strong>MCA+ Admin</strong>
+						</h4>
+					</a>
+					<hr style="background-color: honeydew" />
+				</div>
+				<div class="list-group list-group-flush">
+					<a href="../index.html" class="nav-link mb-2 ">
+						<i class="fas fa-user-graduate mx-1"></i> Student
+					</a>
+					<a href="../teacher/teacher.html" class="nav-link mb-2 ">
+						<i class="fas fa-chalkboard-teacher mx-1"></i> Teacher
+					</a>
+					<a href="../class/class.html" class="nav-link mb-2 ">
+						<i class="fas fa-chalkboard mx-1"></i> Classes
+					</a>
+					<a href="#" class="nav-link mb-2 active">
+						<i class="fas fa-calendar-alt mx-1"></i> Attendance
+					</a>
+					<a href="#" class="nav-link mb-2 ">
+						<i class="fas fa-rupee-sign mx-1"></i> Payment
+					</a>
+					<a href="../notes/notes.html" class="nav-link mb-2 ">
+                        <i class="fas fa-rupee-sign mx-1"></i> Notes
+                    </a>
+					<a href="../logout.html" class="nav-link logout mx-1 mt-5">
+						<i class="fas fa-sign-out-alt"></i> Logout
+					</a>
+				</div>
+			</div>
+			<!-- /#sidebar-wrapper -->
+
+			<!-- Page Content -->
+			<div id="page-content-wrapper">
+				<nav
+					class="navbar navbar-expand-lg navbar-light bg-light border-bottom"
+				>
+					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+						<li class="nav-item mx-3">
+							<a class="nav-link " href="attendance.html">Home</a>
+						</li>
+						<li class="nav-item mx-3">
+							<a class="nav-link active" href="#">View</a>
+						</li>
+					</ul>
+				</nav>
+
+				<div class="container-fluid px-5">
+					<h4 class="mt-4">Add Attendance</h4>
+					<div class="row mt-4 w-100">
+						<table id="attendanceTable" class="table mt-5">
+							<thead>
+								<tr>
+									<th>Reg No</th>
+									<th>Class Name</th>
+									<th>Classes Attended</th>
+									<th>Total Classes</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							
+						</table>
+					</div>
+				</div>
+
+				<!-- Modal -->
+				<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<form id="editForm">
+							<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Edit Details</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							</div>
+							<div class="modal-body">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="">RegNo</span>
+									</div>
+									<input type="text" id="regno" class="form-control" readonly/>
+								</div>
+								<div class="input-group  mt-2">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="">Class Name</span>
+									</div>
+									<input type="text" id="className" class="form-control" readonly/>
+								</div>
+								<div class="input-group  mt-2">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="">Attended</span>
+									</div>
+									<input type="text" id="attend" class="form-control"/>
+								</div>
+								<div class="input-group  mt-2">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="">Total</span>
+									</div>
+									<input type="text" id="total" class="form-control"/>
+								</div>
+								<hr>
+							</div>
+
+							<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Save changes</button>
+							</div>
+						</form>
+					</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- /#page-content-wrapper -->
+		</div>
+		<!-- /#wrapper -->
+
+        <!-- Bootstrap core JavaScript -->
+        
+		<script
+			src="https://code.jquery.com/jquery-3.5.1.min.js"
+        ></script>
+        <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+			integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+			crossorigin="anonymous"
+		></script>
+		<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.7/xlsx.full.min.js"
+			integrity="sha512-qeZm7dcb/ZzFPcKeDm6ATjquEQGPPOV4wtt8wbrinfdRjWgl9vwAIjZQj8mvc3qCyz9IW3mLZH5QnkhK5aeTBg=="
+			crossorigin="anonymous"
+		></script>
+
+				<!-- The core Firebase JS SDK is always required and must be listed first -->
+				<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+				<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+				<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+		
+				<!-- TODO: Add SDKs for Firebase products that you want to use
+					https://firebase.google.com/docs/web/setup#available-libraries -->
+				<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+		
+				<script src="../scripts/firebase.js"></script>
+		<script>
+            $(document).ready(function () {
+				loadTable()
+			})
+
+            function loadTable() {
+				let dataSet=[]
+				db.collection("attendance").get().then((querySnapshot)=>{
+					querySnapshot.forEach((doc)=> {
+						dataSet.push([doc.id,doc.data().class,doc.data().attended,doc.data().total])
+					})
+
+					$('#attendanceTable').DataTable({
+						data: dataSet,
+						columns: [
+							{title: 'Reg No'},
+							{ title: 'Class Name' },
+							{ title: 'Classes Attended' },
+							{ title: 'Total Classes' },
+							{
+								data: null,
+								className: "center",
+								defaultContent: '<a href="" class="editor_edit" id="edit" data-toggle="modal" data-target="#editModal">Edit</a> | <a href="" class="editor_remove" id="delete">Delete</a>'
+							}
+								
+						],
+						
+					})
+
+				})
+			}
+			
+			//DELETE
+			$('#attendanceTable').on('click', 'a.editor_remove', function(e){
+				e.preventDefault();
+				let id = $('td:first', $(this).parents('tr')).text()
+				let tid = '#'+ $(this).attr('id')
+
+				db.collection("attendance").doc(id).delete().then(()=> {
+					console.log("Document successfully deleted!");
+					$(this).parents('tr').remove()
+				}).catch((error)=> {
+					console.error("Error removing document: ", error);
+				})
+			})
+
+			//EDIT
+			$('#attendanceTable').on('click', 'a.editor_edit', function(e) {
+				e.preventDefault();
+				let regno = $('td:first', $(this).parents('tr')).text()
+				let name = $(this).closest('tr').find('td:eq(1)').text()
+				let attend = $(this).closest('tr').find('td:eq(2)').text()
+				let total = $(this).closest('tr').find('td:eq(3)').text()
+				$('#regno').val(regno)
+				$('#className').val(name)
+				$('#attend').val(attend)
+				$('#total').val(total)
+			})
+			
+			$('#editForm').submit((e)=>{
+				e.preventDefault()
+				db.collection('attendance').doc($('#regno').val()).update({
+					attended: $('#attend').val(),
+					total: $('#total').val()
+				}).then(()=>{
+					console.log('update success')
+					location.reload()
+				}).catch((err)=>{
+					console.log(err)
+				})
+
+			})
+
+            // $('#classDropdown').on('change',function(e){
+            //     // alert(this.value)
+            //     db.collection('classes')
+            //         .doc(this.value)
+			// 		.get()
+			// 		.then((doc) => {
+            //             // doc.data() is never undefined for qu	ery doc snapshots
+            //             let subjects=doc.data().subject
+
+            //             for (let i=0;i<subjects.length;i++){
+
+            //                 $('#subjectDropdown').append(
+            //                     '<option value="' +
+            //                     subjects[i] +
+            //                         '">' +
+            //                         subjects[i] +
+            //                         '</option>'
+            //                 )
+            //             }
+                        
+			// 		})
+			// 		.catch((error) => {
+			// 			console.log('Error getting documents: ', error)
+			// 		})
+            // })
+
+        </script>
+	</body>
+</html>

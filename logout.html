@@ -5,7 +5,11 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div class="row">
+        <div class="col">
+            <h1>Please Wait... Logging out..</h1>
+        </div>
+    </div>
 </body>
 <script
 			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -19,7 +23,7 @@
 <script src="./scripts/firebase.js"></script>
 <script>
     $(document).ready(function(){
-        alert("hi")
+        
         auth.signOut().then(()=> {
             // Sign-out successful.
             window.location.replace("login.html")

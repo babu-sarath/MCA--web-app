@@ -44,7 +44,7 @@
 					<a href="#" class="nav-link mb-2 active">
 						<i class="fas fa-chalkboard mx-1"></i> Classes
 					</a>
-					<a href="#" class="nav-link mb-2 ">
+					<a href="../attendance/attendance.html" class="nav-link mb-2 ">
 						<i class="fas fa-calendar-alt mx-1"></i> Attendance
 					</a>
 					<a href="#" class="nav-link mb-2 ">
@@ -70,10 +70,7 @@
 							<a class="nav-link active" href="class.html">Create</a>
 						</li>
 						<li class="nav-item mx-3">
-							<a class="nav-link" href="viewClass.html">View</a>
-						</li>
-						<li class="nav-item mx-3">
-							<a class="nav-link" href="payments.html">Payment</a>
+							<a class="nav-link" href="view.html">View</a>
 						</li>
 					</ul>
 				</nav>
@@ -85,6 +82,7 @@
 							<div class="form-inline">
 								<input id="classCode" type="text" class="form-control mx-2" placeholder="Class ID" required/>
 								<input id="className" type="text" class="form-control mx-2" placeholder="Class Name" required/>
+								<input id="semester" type="text" class="form-control mx-2" placeholder="Semester" required/>
 								<button class="btn btn-color-dark mx-2" type="submit">
 									Create Class
 								</button>
@@ -150,7 +148,7 @@
 					https://firebase.google.com/docs/web/setup#available-libraries -->
 				<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
 		
-				<script src="./scripts/firebase.js"></script>
+				<script src="../scripts/firebase.js"></script>
 		<script src="../scripts/class.js"></script>
 	</body>
 </html>
