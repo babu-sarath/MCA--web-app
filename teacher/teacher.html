@@ -45,22 +45,22 @@
 					<a href="../index.html" class="nav-link mb-2 ">
 						<i class="fas fa-user-graduate mx-1"></i> Student
 					</a>
-					<a href="teacher.html" class="nav-link mb-2  active">
+					<a href="#" class="nav-link mb-2  active">
 						<i class="fas fa-chalkboard-teacher mx-1"></i> Teacher
 					</a>
 					<a href="../class/class.html" class="nav-link mb-2 ">
 						<i class="fas fa-chalkboard mx-1"></i> Classes
 					</a>
-					<a href="#" class="nav-link mb-2 ">
+					<a href="../attendance/attendance.html" class="nav-link mb-2 ">
 						<i class="fas fa-calendar-alt mx-1"></i> Attendance
 					</a>
-					<a href="#" class="nav-link mb-2 ">
+					<a href="../payment/payment.html" class="nav-link mb-2 ">
 						<i class="fas fa-rupee-sign mx-1"></i> Payment
 					</a>
 					<a href="/notes/notes.html" class="nav-link mb-2 ">
                         <i class="fas fa-rupee-sign mx-1"></i> Notes
                     </a>
-					<a href="#" class="nav-link logout mx-1 mt-5">
+					<a href="../logout.html" class="nav-link logout mx-1 mt-5">
 						<i class="fas fa-sign-out-alt"></i> Logout
 					</a>
 				</div>
@@ -91,13 +91,13 @@
 							<div class="form-inline">
 								<input id="teacherID" type="text" class="form-control mx-2" placeholder="Teacher ID" required/>
 								<input id="name" type="text" class="form-control mx-2" placeholder="Name" required/>
-								<input id="dob" type="text" class="form-control mx-2" placeholder="DOB" required/>
+								<input id="dob" type="date" value="" max="2000-12-31" class="form-control mx-2" placeholder="DOB" required/>
 							</div>
 
 							<div class="form-inline mt-3">
 								<input id="email" type="email" class="form-control mx-2" placeholder="Email" required/>
 								<input id="password" type="password" class="form-control mx-2" placeholder="Password" required/>
-								<input id="phoneNo" type="number" class="form-control mx-2" placeholder="Phone Number" required/>
+								<input id="phoneNo" type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" class="form-control mx-2" placeholder="Phone Number" required/>
 							</div>
 						</div>
 						<button class="btn btn-color-dark mt-3" type="submit">
