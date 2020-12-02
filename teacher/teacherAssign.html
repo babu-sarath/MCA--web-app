@@ -24,6 +24,13 @@
 		<title>Admin Dashboard</title>
 	</head>
 	<body>
+		<div class="alert alert-success alert-dismissible fade text-center" role="alert" style="position: absolute; z-index: 50; bottom:0; width: 100%;">
+
+			<strong>Success!</strong> <p id="alertMessage"></p>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>	
+		</div>
 		<div class="d-flex" id="wrapper">
 			<!-- Sidebar -->
 			<div class="border-right" id="sidebar-wrapper">
@@ -42,10 +49,10 @@
 					<a href="teacher.html" class="nav-link active">
 						<i class="fas fa-chalkboard-teacher mx-1"></i> Teacher
 					</a>
-					<a href="#" class="nav-link">
+					<a href="../class/class.html" class="nav-link">
 						<i class="fas fa-chalkboard mx-1"></i> Classes
 					</a>
-					<a href="#" class="nav-link">
+					<a href="../attendance/attendance.html" class="nav-link">
 						<i class="fas fa-calendar-alt mx-1"></i> Attendance
 					</a>
 					<a href="#" class="nav-link">
@@ -54,7 +61,7 @@
 					<a href="/notes/notes.html" class="nav-link mb-2 ">
                         <i class="fas fa-rupee-sign mx-1"></i> Notes
                     </a>
-					<a href="#" class="nav-link logout mx-1 mt-5">
+					<a href="../logout.html" class="nav-link logout mx-1 mt-5">
 						<i class="fas fa-sign-out-alt"></i> Logout
 					</a>
 				</div>
@@ -73,28 +80,41 @@
 						<li class="nav-item mx-3">
 							<a class="nav-link active" href="#">Assign</a>
 						</li>
-						<li class="nav-item mx-3">
-							<a class="nav-link" href="teacherView.html">View</a>
-						</li>
 					</ul>
 				</nav>
 
 				<div class="container-fluid px-5">
-					<h4 class="mt-4">Assign Teacher</h4>
+					<div class="row">
+						<h4 class="mt-4">Assign Class</h4>
+						<button type="button" class="btn btn-color-dark my-3 ml-auto" id="report">Generate Report</button>
+					</div>
 					<div class="row my-4">
-						<div class="form-inline">
+						<form id="assignClass" class="form-inline">
 							<input id="teacher" type="text" class="form-control mx-2" placeholder="Teacher ID"
 							/>
 							<select id="classDropdown" class="custom-select mx-2">
 								<option selected>Select Class</option>
 							</select>
-							<select id="subjectDropdown" class="custom-select mx-2">
-								<option selected>Select Subject</option>
-							</select>
-							<button class="btn btn-color-dark mx-2">
+							<button class="btn btn-color-dark mx-2" type="submit">
 								Assign
 							</button>
-						</div>
+						</form>
+					</div>
+					<h4 class="mt-4">Assign Subjects</h4>
+					<div class="row my-4">
+						<form id="assignSubject" class="form-inline">
+							<input id="teacher2" type="text" class="form-control mx-2" placeholder="Teacher ID"
+							/>
+							<select id="classDropdown2" class="custom-select mx-2">
+								<option selected>Select Class</option>
+							</select>
+							<select id="subjectDropdown2" class="custom-select mx-2">
+								<option selected>Select Subject</option>
+							</select>
+							<button class="btn btn-color-dark mx-2" type="submit">
+								Assign
+							</button>
+						</form>
 					</div>
 
 					<table id="teacherTable" class="table">
@@ -158,17 +178,31 @@
 								</div>
 								<input type="text" id="phone" class="form-control"/>
 							</div>
+							<div class="input-group  mt-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="">Subjects</span>
+								</div>
+								<input type="text" id="subs" class="form-control" readonly/>
+							</div>
 							
 							<!-- <input type="text" id="class" class="form-control mt-2"/> -->
 							<div class="input-group mt-2">
 								<div class="input-group-prepend">
-									<select id="classDropdown" class="custom-select dropdown-toggle">
-										<option value="0" selected>Select Class</option>
+									<select id="classDropdown3" class="custom-select dropdown-toggle">
+										<option value="not assigned" selected>Select Class</option>
 									</select>
 								</div>
 								<input type="text" id="class" class="form-control" aria-label="Text input with dropdown button" readonly>
 							</div>
-
+							<hr>
+								<h5 class="mt-3">Remove Subjects</h5>
+								<div class="input-group  mt-2">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="">Subject Name</span>
+									</div>
+									<input type="text" id="sub" class="form-control" placeholder="Enter one Subject at a time"/>
+								</div>
+								<button id="rmSubject" type="button" class="btn btn-primary mt-2">Remove Subject</button>
 						</div>
 						<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -184,9 +218,7 @@
 
 		<!-- Bootstrap core JavaScript -->
 		<script
-			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-			crossorigin="anonymous"
+			src="https://code.jquery.com/jquery-3.5.1.min.js"
 		></script>
 		<script
 			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -210,26 +242,144 @@
 
 		<script src="../scripts/firebase.js"></script>
 		<script>
+
 			$(document).ready(() => {
 				const queryString = window.location.search;
 				const urlParams = new URLSearchParams(queryString);
 				const teacherID = urlParams.get('id')
+
 				$('#teacher').val(teacherID)
-				$("#teacher").attr("disabled", "disabled"); 
+				$('#teacher2').val(teacherID)
 
 				loadClassSelect()
+				loadTable()
 
-				$('#classDropdown').on('change', function() {
-					loadSubject(this.value)
-				});
+				//DELETE
+				$('#teacherTable').on('click', 'a.editor_remove', function(e){
+					e.preventDefault();
+					let regno = $('td:first', $(this).parents('tr')).text()
+					let tid = '#'+ $(this).attr('id')
+					let emailVal = $(this).closest('tr').find('td:eq(2)').text()
 
+					db.collection("users").doc(regno).delete().then(()=> {	
+						console.log("Document successfully deleted!");
+
+						const functions = firebase.functions()
+						const removeUser = functions.httpsCallable('deleteUserAdmin')
+						removeUser({
+							email: emailVal
+						}).then((result) => {
+							console.log(result)
+						})
+						$(this).parents('tr').remove()
+						showMessage('Deleted the user')
+					}).catch((error)=> {
+						console.error("Error removing document: ", error);
+					})
+				})
+
+				//EDIT
+				$('#teacherTable').on('click', 'a.editor_edit', function(e) {
+					e.preventDefault();
+					let tid = $('td:first', $(this).parents('tr')).text()
+					let name = $(this).closest('tr').find('td:eq(1)').text()
+					let email = $(this).closest('tr').find('td:eq(2)').text()
+					let phoneNo = $(this).closest('tr').find('td:eq(3)').text()
+					let dob= $(this).closest('tr').find('td:eq(4)').text()
+					let className= $(this).closest('tr').find('td:eq(5)').text()
+					let subs= $(this).closest('tr').find('td:eq(6)').text()
+					// loadSelect()
+					$('#regno').val(tid)
+					$('#name').val(name)
+					$('#email').val(email)
+					$('#phone').val(phoneNo)
+					$('#dob').val(dob)
+					$('#class').val(className)
+					$('#subs').val(subs)
+				})
+
+				$('#editForm').submit((e)=>{
+					e.preventDefault()
+					db.collection('users').doc($('#regno').val()).update({
+						name: $('#name').val(),
+						dob: $('#dob').val(),
+						phone: $('#phone').val(),
+					}).then(()=>{
+						console.log('update success')
+						showMessage('Update was made without any errors')
+						location.reload()
+					}).catch((err)=>{
+						console.log(err)
+					})
+				})
+
+				//edit form class dropdown
+				$('#classDropdown3').change(function(){
+					var classVal = this.value;
+					$('#class').val(classVal)
+				})
+
+				//remove subjects from teacher
+				$('#rmSubject').on('click',(e)=>{
+					e.preventDefault()
+					let Sub=$('#sub').val()
+					if(!Sub==''){
+						let ret = $('#subs').val().replace(Sub,'');
+						db.collection('users').doc($('#regno').val()).update({
+								subjects: firebase.firestore.FieldValue.arrayRemove(Sub)
+						}).then(()=>{
+							console.log('update success')
+							$('#subject').val(ret)
+							$('#sub').val('')
+							location.reload()
+						}).catch((err)=>{
+							console.log(err)
+						})
+					}
+				})
+
+			})
+
+			$('#report').click((e)=>{
+				let filename=''
+				let downloadLink;
+				let dataType = 'application/vnd.ms-excel';
+				let tableSelect = document.getElementById('teacherTable');
+				let tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+				// Specify file name
+				filename = filename?filename+'.xls':'teacher_data.xls';
+
+				// Create download link element
+				downloadLink = document.createElement("a");
+
+				document.body.appendChild(downloadLink);
+				if(navigator.msSaveOrOpenBlob){
+					var blob = new Blob(['\ufeff', tableHTML], {
+						type: dataType
+					});
+					navigator.msSaveOrOpenBlob( blob, filename);
+				}else{
+					// Create a link to the file
+					downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+				
+					// Setting the file name
+					downloadLink.download = filename;
+					
+					//triggering the function
+					downloadLink.click();
+				}
+			})
+
+
+			function loadTable(){
 				let dataSet =  []
 				db.collection("users").where("userType","==","teacher").get().then((querySnapshot)=>{
 					querySnapshot.forEach((doc)=> {
 						dataSet.push([doc.id,doc.data().name,doc.data().email,doc.data().phone,doc.data().dob,doc.data().class,doc.data().subjects])
 					})
 
-					$('#teacherTable').DataTable({
+				$('#teacherTable').DataTable({
 						data: dataSet,
 						columns: [
 							{title: 'Teacher ID'},
@@ -250,46 +400,38 @@
 					})
 
 				})
+			}
 
-				//DELETE
-				$('#teacherTable').on('click', 'a.editor_remove', function(e){
-					e.preventDefault();
-					let regno = $('td:first', $(this).parents('tr')).text()
-					let tid = '#'+ $(this).attr('id')
-					let emailVal = $(this).closest('tr').find('td:eq(2)').text()
-
-					db.collection("users").doc(regno).delete().then(()=> {	
-						console.log("Document successfully deleted!");
-
-						const functions = firebase.functions()
-						const removeUser = functions.httpsCallable('deleteUserAdmin')
-						removeUser({
-							email: emailVal
-						}).then((result) => {
-							console.log(result)
-						})
-						$(this).parents('tr').remove()
-					}).catch((error)=> {
-						console.error("Error removing document: ", error);
+			$('#assignClass').submit((e)=>{
+				e.preventDefault()
+				db.collection('users').doc($('#teacher').val()).update({
+						class: $('#classDropdown').val(),
+					}).then(()=>{
+						console.log('update success')
+						showMessage('Class was assigned without any error')
+						location.reload()
+					}).catch((err)=>{
+						console.log(err)
 					})
-				})
-
-				//EDIT
-				$('#teacherTable').on('click', 'a.editor_edit', function(e) {
-					e.preventDefault();
-					let tid = $('td:first', $(this).parents('tr')).text()
-					let name = $(this).closest('tr').find('td:eq(1)').text()
-					let email = $(this).closest('tr').find('td:eq(2)').text()
-					let phoneNo = $(this).closest('tr').find('td:eq(3)').text()
-					let dob= $(this).closest('tr').find('td:eq(4)').text()
-					// loadSelect()
-					$('#regno').val(tid)
-					$('#name').val(name)
-					$('#email').val(email)
-					$('#phone').val(phoneNo)
-					$('#dob').val(dob)
-				})
 			})
+
+			$('#assignSubject').submit((e)=>{
+				e.preventDefault()
+				db.collection('users').doc($('#teacher2').val()).update({
+						subjects: firebase.firestore.FieldValue.arrayUnion($('#subjectDropdown2').val()),
+					}).then(()=>{
+						console.log('update success')
+						showMessage('Subject was assigned without any error')
+						location.reload()
+					}).catch((err)=>{
+						console.log(err)
+					})
+			})
+
+			$('#classDropdown2').on('change', function() {
+				loadSubject(this.value)
+			})
+
 
 			function loadClassSelect(){
 				db.collection('classes')
@@ -305,7 +447,20 @@
 									doc.data().className +
 									'</option>'
 							)
-							loadSubject(doc.id)
+							$('#classDropdown2').append(
+								'<option value="' +
+									doc.id +
+									'">' +
+									doc.data().className +
+									'</option>'
+							)
+							$('#classDropdown3').append(
+								'<option value="' +
+									doc.id +
+									'">' +
+									doc.data().className +
+									'</option>'
+							)
 						})
 					})
 					.catch((error) => {
@@ -313,30 +468,33 @@
 					})
 			}
 
-			function loadSubject(selectedClass){
-				
-				// db.collection('classes')
-				// 	.doc(selectedClass)
-				// 	.get()
-				// 	.then((doc) => {
-				// 		// console.log(doc.data())
-				// 		// querySnapshot.forEach((doc) => {
-				// 		// 	console.log(doc.data())
-				// 		// 	// doc.data() is never undefined for qu	ery doc snapshots
-				// 		// 	console.log(doc.id, ' => ', doc.data())
-				// 		// 	$('#subjectDropdown').append(
-				// 		// 		'<option value="' +
-				// 		// 			doc.data().subject +
-				// 		// 			'">' +
-				// 		// 			doc.data().subject +
-				// 		// 			'</option>'
-				// 		// 	)
-				// 		// })
-				// 	})
-				// 	.catch((error) => {
-				// 		console.log('Error getting documents: ', error)
-				// 	})
+			function loadSubject(className){
+				db.collection('classes')
+					.doc(className)
+					.get()
+					.then((doc) => {
+						console.log(doc.id, ' => ', doc.data().subject)
+						let subjects=doc.data().subject
+						for (let i=0;i<subjects.length;i++){
+							$('#subjectDropdown2').append(
+								'<option value="' +
+									subjects[i] +
+									'">' +
+									subjects[i] +
+									'</option>'
+							)
+						}
+					})
+					.catch((error) => {
+						console.log('Error getting documents: ', error)
+					})
 			}
+
+			function showMessage(msg) {
+				$('.alert').addClass('show')
+				$('#alertMessage').append(msg)
+			}
+
 		</script>
 
 	</body>

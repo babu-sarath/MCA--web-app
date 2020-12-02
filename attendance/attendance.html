@@ -23,6 +23,13 @@
 		<title>Admin Dashboard</title>
 	</head>
 	<body>
+		<div class="alert alert-success alert-dismissible fade text-center" role="alert" style="position: absolute; z-index: 50; bottom:0; width: 100%;">
+
+			<strong>Success!</strong> <p id="alertMessage"></p>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>	
+		</div>
 		<div class="d-flex" id="wrapper">
 			<!-- Sidebar -->
 			<div class="border-right" id="sidebar-wrapper">
@@ -47,7 +54,7 @@
 					<a href="#" class="nav-link mb-2 active">
 						<i class="fas fa-calendar-alt mx-1"></i> Attendance
 					</a>
-					<a href="#" class="nav-link mb-2 ">
+					<a href="../payment/payment.html" class="nav-link mb-2 ">
 						<i class="fas fa-rupee-sign mx-1"></i> Payment
 					</a>
 					<a href="../notes/notes.html" class="nav-link mb-2 ">
@@ -182,7 +189,13 @@
 					.catch((error) => {
 						console.log('Error getting documents: ', error)
 					})
-            }
+			}
+			
+			
+			function showMessage(msg) {
+				$('.alert').addClass('show')
+				$('#alertMessage').append(msg)
+			}
             
             // $('#classDropdown').on('change',function(e){
             //     // alert(this.value)
@@ -217,16 +230,19 @@
                 let sub=$('#subjectDropdown').val()
 				let attd=sub+'#'+$('#currentCount').val()/$('#totalCount').val()*100
 				const dbref=db.collection('attendance').doc($('#regNo').val())
+				let res=($('#currentCount').val()/$('#totalCount').val())/100;
 
 				dbref.get().then((doc)=>{
 					if(doc.exists){
 						dbref.update({
 								attended: $('#currentCount').val(),
-								total: $('#totalCount').val()
+								total: $('#totalCount').val(),
+								attendance: res.toFixed(2)
 							})
 							.then(() => {
 								console.log('Document successfully written!')
 								$('#createAttendance').trigger('reset')
+								showMessage('Attendance added succeffully')
 							})
 							.catch((error) => {
 								console.error('Error writing document: ', error)
@@ -235,11 +251,13 @@
 						db.collection('attendance').doc($('#regNo').val()).set({
 								class: $('#classDropdown').val(),
 								attended: $('#currentCount').val(),
-								total: $('#totalCount').val()
+								total: $('#totalCount').val(),
+								attendance: res.toFixed(2)
 							})
 							.then(() => {
 								console.log('Document successfully written!')
 								$('#createAttendance').trigger('reset')
+								showMessage('Attendance added succeffully')
 							})
 							.catch((error) => {
 								console.error('Error writing document: ', error)

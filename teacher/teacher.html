@@ -23,6 +23,13 @@
 		<title>Admin Dashboard</title>
 	</head>
 	<body>
+		<div class="alert alert-success alert-dismissible fade text-center" role="alert" style="position: absolute; z-index: 50; bottom:0; width: 100%;">
+
+			<strong>Success!</strong> <p id="alertMessage"></p>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>	
+		</div>	
 		<div class="d-flex" id="wrapper">
 			<!-- Sidebar -->
 			<div class="border-right" id="sidebar-wrapper">
@@ -73,9 +80,6 @@
 							<a class="nav-link" href="teacherAssign.html"
 								>Assign</a
 							>
-						</li>
-						<li class="nav-item mx-3">
-							<a class="nav-link" href="teacherView.html">View</a>
 						</li>
 					</ul>
 				</nav>

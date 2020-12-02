@@ -3,11 +3,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
 </head>
 <body>
-    <div class="row">
-        <div class="col">
-            <h1>Please Wait... Logging out..</h1>
+    <div class="row justify-content-md-center h-100" style="margin: auto;">
+        <div class="text-center">
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_YZb2Qu.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player>
+            <h1 style="color:#FD8D3B;">Logging out...</h1>
         </div>
     </div>
 </body>
@@ -30,7 +34,7 @@
             }).catch((error)=> {
             // An error happened.
             console.log(error)
-            window.location.replace("index.html")
+            window.location.replace("login.html")
             });
             
     });

@@ -1,31 +1,107 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+	<meta charset="utf-8">
+	<meta name="author" content="Kodinger">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>My Login Page</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
-<body>
 
-    <div class="col-md-5">
-        <h3>Login</h3>
-        <form id="form"> 
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="inputMail" aria-describedby="emailHelp" placeholder="Enter email">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="inputPass" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-
+<body class="my-login-page">
+    <div id="fade-wrapper" class="">
+        <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_HDWOkD.json"  background="transparent"  speed="0.5"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <div class="alert alert-warning alert-dismissible fade text-center" role="alert" style="position: absolute; z-index: 50; bottom:0; width: 100%;">
+
+        <strong>Warning!</strong> <p id="alertMessage"></p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>	
+    </div>
+	<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-md-center h-100">
+				<div class="card-wrapper">
+					<div class="brand text-center">
+                        <img src="./imgs/logo.png">
+					</div>
+					<div class="card fat">
+						<div class="card-body">
+                            <h6>Admin</h6>
+							<h3 class="card-title">Login</h3>
+							<form id="form" class="my-login-validation" novalidate="">
+								<div class="form-group">
+									<label for="email">E-Mail Address</label>
+									<input id="inputMail" type="email" class="form-control" name="email" value="" required>
+								</div>
+
+								<div class="form-group">
+									<label for="password">Password
+										<a data-toggle="modal" data-target="#forgotModal" class="float-right" style="cursor: pointer;">
+											Forgot Password?
+										</a>
+									</label>
+									<input id="inputPass" type="password" class="form-control" name="password" required>
+								</div>
+
+								<div class="form-group m-0">
+									<button type="submit" class="btn btn-primary btn-block">
+										Login
+									</button>
+                                </div>
+                                
+                            </form>
+                            <!-- <button id="test" class="btn btn-primary btn-block">
+                                show
+                            </button> -->
+						</div>
+					</div>
+					<div class="footer">
+						Copyright &copy; 2020 &mdash; SB&MB
+					</div>
+				</div>
+			</div>
+		</div>
+    </section>
+    <!-- Modal -->
+    <div class="modal fade" id="forgotModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="row justify-content-md-center align-items-center h-100">
+				<div class="card-wrapper">
+					<div class="my-3 fat">
+						<div class="card-body">
+							<h4 class="card-title">Forgot Password</h4>
+							<form id="forgotForm" class="my-login-validation" novalidate="">
+								<div class="form-group">
+									<label for="email">E-Mail Address</label>
+									<input id="forgotEmail" type="email" class="form-control" name="forgotEmail" value="" required>
+									<div class="form-text text-muted">
+										By clicking "Reset Password" we will send a password reset link
+									</div>
+								</div>
+
+								<div class="form-group m-0">
+									<button type="submit" class="btn btn-primary btn-block">
+										Reset Password
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+        </div>
+    </div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
@@ -55,24 +131,61 @@
         const auth = firebase.auth()
     </script>
     <script>
+        function showMessage(msg) {
+				$('.alert').addClass('show')
+				$('#alertMessage').append(msg)
+            }
+            
         $("#form").submit((e)=>{
             
             e.preventDefault();
+            $('#fade-wrapper').fadeIn();
             var email = $('#inputMail').val();
             var password = $('#inputPass').val();
             
-            auth.signInWithEmailAndPassword(email, password).then(user=>{
+            if(email==='' || password==='')
+            {
+                $('#fade-wrapper').fadeOut();
+                showMessage("Please fill in all the feilds")
+            }else{
+                auth.signInWithEmailAndPassword(email, password).then(user=>{
                 window.location.replace("index.html")
-            }).catch((error)=>{
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log(errorCode);
-                alert(errorMessage);
-            });
+                }).catch((error)=>{
+                    $('#fade-wrapper').fadeOut();
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    showMessage(errorMessage)
+                    console.log(errorCode);
+                });
 
+            }
+            
+        });
+
+        $('#forgotForm').submit((e)=>{
+            e.preventDefault();
+            var email = $('#forgotEmail').val();
+
+            if(email===''){
+                showMessage("Please fill in the email")
+            }else{
+                auth.sendPasswordResetEmail(email).then(res=>{
+                    console.log(res)
+                    showMessage("An email has been sent with the reset instructions")
+                }).catch(err=>{
+                    console.log(err)
+                    showMessage(err.message)
+                })
+            }
+        })
+
+        $('#test').click(function(){
+            $('#fade-wrapper').fadeIn();
+        });
+        $('#fade-wrapper').click(function(){
+            $(this).fadeOut();
         });
     </script>
-
 </body>
 </html>

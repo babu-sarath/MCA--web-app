@@ -55,10 +55,10 @@
 					<a href="../attendance/attendance.html" class="nav-link">
 						<i class="fas fa-calendar-alt mx-1"></i> Attendance
 					</a>
-					<a href="../payment/payment.html" class="nav-link">
+					<a href="#" class="nav-link active">
 						<i class="fas fa-rupee-sign mx-1"></i> Payment
 					</a>
-					<a href="#" class="nav-link active mb-2 ">
+					<a href="../notes/notes.html" class="nav-link mb-2 ">
                         <i class="fas fa-rupee-sign mx-1"></i> Notes
                     </a>
 					<a href="../logout.html" class="nav-link logout mx-1 mt-5">
@@ -75,25 +75,25 @@
 				>
 					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 						<li class="nav-item mx-3">
-							<a class="nav-link active" href="teacher.html">Home</a>
+							<a class="nav-link active" href="#">Home</a>
 						</li>
 					</ul>
 				</nav>
 
 				<div class="container-fluid px-5">
-					<h4 class="my-4">All notes in db</h4>
-					
-					<table id="teacherTable" class="table">
+					<div class="row">
+						<h4 class="my-4">All the payments</h4>
+						<button type="button" class="btn btn-color-dark my-3 ml-auto" id="report">Generate Report</button>
+					</div>
+
+					<table id="paymentTable" class="table">
 						<thead>
 							<tr>
-								<th>Notes ID</th>
-								<th>Class Name</th>
-								<th>Subject</th>
-								<th>Teacher</th>
-								<th>Notes Title</th>
-								<th>URL</th>
-								<th>Uploaded on</th>
-								<th>Action</th>
+								<th>Payment ID</th>
+								<th>Email</th>
+								<th>Event name</th>
+								<th>Paid</th>
+								<th>Paid on</th>
 							</tr>
 						</thead>
 						
@@ -101,6 +101,8 @@
 				</div>
 			</div>
 			<!-- /#page-content-wrapper -->
+
+			
 
 		</div>
 		<!-- /#wrapper -->
@@ -125,7 +127,6 @@
 		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-functions.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-storage.js"></script>
 		<!-- TODO: Add SDKs for Firebase products that you want to use
 			https://firebase.google.com/docs/web/setup#available-libraries -->
 		<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
@@ -134,39 +135,8 @@
 		<script>
 
 			$(document).ready(() => {
-
-				loadTable()
-				let storage = firebase.storage();
-				let storageRef=storage.ref()
-
-				//DELETE
-				$('#teacherTable').on('click', 'a.editor_remove', function(e){
-					e.preventDefault();
-					let notesID = $('td:first', $(this).parents('tr')).text()
-					let subject = $(this).closest('tr').find('td:eq(2)').text()
-					let name = $(this).closest('tr').find('td:eq(4)').text()
-
-					// alert(notesID+subject+name)
-					db.collection("notes").doc(notesID).delete().then(()=> {	
-						console.log("Document successfully deleted from db!");
-						
-						let fileRef = storageRef.child('notes/'+subject+'/'+name+'.pdf');
-						fileRef.delete().then((stat)=>{
-							console.log("Document successfully deleted from storage!");
-							showMessage('The document has been deleted successfully')
-						}).catch((err)=>{
-							console.log(err);
-						})
-						$(this).parents('tr').remove()
-						
-					}).catch((error)=> {
-						console.error("Error removing document: ", error);
-					})
-				})
-
-				
+                loadTable()      
 			})
-
 			
 			function showMessage(msg) {
 				$('.alert').addClass('show')
@@ -175,26 +145,19 @@
 
 			function loadTable(){
 				let dataSet =  []
-				db.collection("notes").get().then((querySnapshot)=>{
+				db.collection("payments").get().then((querySnapshot)=>{
 					querySnapshot.forEach((doc)=> {
-						dataSet.push([doc.id,doc.data().class,doc.data().subject,doc.data().teacher,doc.data().title,doc.data().url,doc.data().uploadedOn])
+						dataSet.push([doc.data().paymentID,doc.data().email,doc.data().name,doc.data().price,new Date(doc.data().timestamp.toDate())])
 					})
 
-				$('#teacherTable').DataTable({
+				$('#paymentTable').DataTable({
 						data: dataSet,
 						columns: [
-							{ title: 'Notes ID'},
-							{ title: 'Class Name' },
-							{ title: 'Subject' },
-							{ title: 'Teacher' },
-							{ title: 'Notes Title' },
-							{ title: 'URL' },
-							{ title: 'Uploaded on' },
-							{
-								data: null,
-								className: "center",
-								defaultContent: '<a href="" class="editor_remove" id="delete">Delete</a>'
-							}
+							{title: 'Payment ID'},
+							{ title: 'Email' },
+							{ title: 'Event name' },
+							{ title: 'Paid' },
+							{ title: 'Paid on' },
 							    
 						],
 						
@@ -202,6 +165,38 @@
 
 				})
 			}
+			
+			$('#report').click((e)=>{
+				let filename=''
+				let downloadLink;
+				let dataType = 'application/vnd.ms-excel';
+				let tableSelect = document.getElementById('paymentTable');
+				let tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+				// Specify file name
+				filename = filename?filename+'.xls':'payment_data.xls';
+
+				// Create download link element
+				downloadLink = document.createElement("a");
+
+				document.body.appendChild(downloadLink);
+				if(navigator.msSaveOrOpenBlob){
+					var blob = new Blob(['\ufeff', tableHTML], {
+						type: dataType
+					});
+					navigator.msSaveOrOpenBlob( blob, filename);
+				}else{
+					// Create a link to the file
+					downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+				
+					// Setting the file name
+					downloadLink.download = filename;
+					
+					//triggering the function
+					downloadLink.click();
+				}
+			})
+
 
 			$('#assignClass').submit((e)=>{
 				e.preventDefault()
@@ -209,7 +204,7 @@
 						class: $('#classDropdown').val(),
 					}).then(()=>{
 						console.log('update success')
-						showMessage('The update was made without any errors')
+						showMessage('The update was successful without any errors')
 						location.reload()
 					}).catch((err)=>{
 						console.log(err)
@@ -222,7 +217,7 @@
 						subjects: firebase.firestore.FieldValue.arrayUnion($('#subjectDropdown2').val()),
 					}).then(()=>{
 						console.log('update success')
-						showMessage('The subject was assigned to the teacher')
+						showMessage('The update was successful without any errors')
 						location.reload()
 					}).catch((err)=>{
 						console.log(err)

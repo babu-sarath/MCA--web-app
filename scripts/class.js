@@ -2,6 +2,11 @@ $(document).ready(() => {
 	loadSelect()
 })
 
+function showMessage(msg) {
+	$('.alert').addClass('show')
+	$('#alertMessage').append(msg)
+}
+
 $('#createClass').submit((e) => {
 	e.preventDefault()
 	let id = $('#classCode').val()
@@ -17,7 +22,7 @@ $('#createClass').submit((e) => {
 		})
 		.then(() => {
 			console.log('Document successfully written!')
-			location.reload()
+			showMessage('Class has been successfully created')
 			$('#createTeacher').trigger('reset')
 		})
 		.catch((error) => {
@@ -39,6 +44,7 @@ $('#createSubject').submit((e) => {
 		.then(() => {
 			console.log('Document successfully updated!')
 			$('#createSubject').trigger('reset')
+			showMessage('Subject has been successfully created')
 		})
 		.catch((error) => {
 			console.error('Error updating document: ', error)

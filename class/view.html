@@ -24,6 +24,13 @@
 		<title>Admin Dashboard</title>
 	</head>
 	<body>
+		<div class="alert alert-success alert-dismissible fade text-center" role="alert" style="position: absolute; z-index: 50; bottom:0; width: 100%;">
+
+			<strong>Success!</strong> <p id="alertMessage"></p>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>	
+		</div>
 		<div class="d-flex" id="wrapper">
 			<!-- Sidebar -->
 			<div class="border-right" id="sidebar-wrapper">
@@ -77,7 +84,10 @@
 				</nav>
 
 				<div class="container-fluid px-5">
-					<h4 class="mt-4">Add Teacher</h4>
+					<div class="row">
+						<h4 class="mt-4">Add Teacher</h4>
+						<button type="button" class="btn btn-color-dark my-3 ml-auto" id="report">Generate Report</button>
+					</div>
 						<div class="mt-4">
 							<table id="classTable" class="table mt-5">
 								<thead>
@@ -221,6 +231,11 @@
 				})
 			}
 
+			function showMessage(msg) {
+				$('.alert').addClass('show')
+				$('#alertMessage').append(msg)
+			}
+
 			//DELETE
 			$('#classTable').on('click', 'a.editor_remove', function(e){
 				e.preventDefault();
@@ -228,8 +243,8 @@
 				let tid = '#'+ $(this).attr('id')
 
 				db.collection("classes").doc(id).delete().then(()=> {
-					
 					console.log("Document successfully deleted!");
+					showMessage('Class has been successfully deleted')
 					$(this).parents('tr').remove()
 				}).catch((error)=> {
 					console.error("Error removing document: ", error);
@@ -264,6 +279,38 @@
 
 			})
 
+			$('#report').click((e)=>{
+				let filename=''
+				let downloadLink;
+				let dataType = 'application/vnd.ms-excel';
+				let tableSelect = document.getElementById('classTable');
+				let tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+				// Specify file name
+				filename = filename?filename+'.xls':'class_data.xls';
+
+				// Create download link element
+				downloadLink = document.createElement("a");
+
+				document.body.appendChild(downloadLink);
+				if(navigator.msSaveOrOpenBlob){
+					var blob = new Blob(['\ufeff', tableHTML], {
+						type: dataType
+					});
+					navigator.msSaveOrOpenBlob( blob, filename);
+				}else{
+					// Create a link to the file
+					downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+				
+					// Setting the file name
+					downloadLink.download = filename;
+					
+					//triggering the function
+					downloadLink.click();
+				}
+			})
+
+
 			$('#rmSubject').on('click',(e)=>{
 				e.preventDefault()
 				let Sub=$('#sub').val()
@@ -273,6 +320,7 @@
 							subject: firebase.firestore.FieldValue.arrayRemove(Sub)
 					}).then(()=>{
 						console.log('update success')
+						showMessage('Update completed without any error')
 						$('#subject').val(ret)
 						$('#sub').val('')
 						location.reload()

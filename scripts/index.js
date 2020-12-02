@@ -38,6 +38,7 @@ $('#createStudent').submit((e) => {
 				console.log(result)
 			})
 			$('#createStudent').trigger('reset')
+			showMessage('User created with no errors')
 		})
 		.catch((error) => {
 			console.error('Error writing document: ', error)
@@ -84,4 +85,9 @@ function loadSelect() {
 		.catch((error) => {
 			console.log('Error getting documents: ', error)
 		})
+}
+
+function showMessage(msg) {
+	$('.alert').addClass('show')
+	$('#alertMessage').append(msg)
 }

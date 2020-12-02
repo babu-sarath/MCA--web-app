@@ -1,3 +1,8 @@
+function showMessage(msg) {
+	$('.alert').addClass('show')
+	$('#alertMessage').append(msg)
+}
+
 $('#createTeacher').submit((e) => {
 	e.preventDefault()
 	let id = $('#teacherID').val()
@@ -33,6 +38,8 @@ $('#createTeacher').submit((e) => {
 			}).then((result) => {
 				console.log(result)
 				$('#createTeacher').trigger('reset')
+				showMessage('User has been created successfully')
+				window.location.replace('teacherAssign.html?id=' + id)
 			})
 		})
 		.catch((error) => {
