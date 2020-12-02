@@ -8,7 +8,8 @@ body {
 #sidebar-wrapper {
 	min-height: 100vh;
 	margin-left: -15rem;
-	background-color: #0f3158;
+	/* background-color: #0f3158; */
+	background-image: linear-gradient(#2c67ac, #0f3158);
 }
 #sidebar-wrapper a {
 	text-decoration: none;
@@ -47,7 +48,9 @@ body {
 	font-weight: 500;
 	color: #00ff11;
 }
-.btn-color-dark a:hover {
+.btn-color-dark:hover {
+	background-color: #154174;
+	font-weight: 500;
 	color: white;
 }
 

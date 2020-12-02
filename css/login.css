@@ -4,8 +4,19 @@ body {
 }
 
 body.my-login-page {
-	background-color: #f7f9fb;
+	background-image: linear-gradient(to bottom right, #2c67ac, #0f3158);
 	font-size: 14px;
+}
+
+.btn-primary {
+	background-color: #0f3158;
+	font-weight: 500;
+	color: #00ff11;
+}
+.btn-primary:hover {
+	background-color: #154174;
+	font-weight: 500;
+	color: white;
 }
 
 .my-login-page .brand {
