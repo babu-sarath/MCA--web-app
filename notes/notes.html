@@ -19,11 +19,14 @@
 			rel="stylesheet"
 			href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"
 		/>
-
+		<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 		<link rel="stylesheet" href="/css/style.css" />
 		<title>Admin Dashboard</title>
 	</head>
 	<body>
+		<div id="fade-wrapper" class="">
+			<lottie-player src="https://assets5.lottiefiles.com/packages/lf20_HDWOkD.json"  background="transparent"  speed="0.5"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player>
+		</div>
 		<div class="alert alert-success alert-dismissible fade text-center" role="alert" style="position: absolute; z-index: 50; bottom:0; width: 100%;">
 
 			<strong>Success!</strong> <p id="alertMessage"></p>
@@ -174,6 +177,7 @@
 			}
 
 			function loadTable(){
+				$('#fade-wrapper').fadeIn();
 				let dataSet =  []
 				db.collection("notes").get().then((querySnapshot)=>{
 					querySnapshot.forEach((doc)=> {
@@ -199,7 +203,7 @@
 						],
 						
 					})
-
+					$('#fade-wrapper').fadeOut();
 				})
 			}
 
